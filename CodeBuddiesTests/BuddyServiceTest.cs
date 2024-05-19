@@ -397,6 +397,8 @@ namespace CodeBuddiesTests
 
                 Assert.That(changedBuddy.Status, Is.EqualTo("inactive"));
             }
+
+            // Test
         }
     }
 }
