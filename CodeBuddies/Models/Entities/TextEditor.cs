@@ -1,38 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities.Interfaces;
 
 namespace CodeBuddies.Models.Entities
 {
     public class TextEditor : ITextEditor
     {
-        #region Fields
-        private string textColor;
-        private List<string> filePaths;
-        #endregion
-
         #region Properties
-        public string TextColor
-        {
-            get { return textColor; }
-            set { textColor = value; }
-        }
-        public List<string> FilePaths
-        {
-            get { return filePaths; }
-            set { filePaths = value; }
-        }
+        public string TextColor { get; set; }
+        public List<string> FilePaths { get; set; }
         #endregion
-
+        #region Constructors
+        public TextEditor()
+        {
+            TextColor = string.Empty;
+            FilePaths = new List<string>();
+        }
         public TextEditor(string textColor, List<string> filesPaths)
         {
             TextColor = textColor;
             FilePaths = filesPaths;
         }
-
+        #endregion
         #region Methods
 
         /// <summary>
