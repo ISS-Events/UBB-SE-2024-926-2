@@ -13,7 +13,7 @@ namespace CodeBuddies.Models.Entities
         List<IReaction> Reactions { get; set; }
         #endregion
         #region Methods
-        int Score() => CollectionSummerFactory<IReaction>.GetFromMapping(MapReactionToInt).ApplyTo(Reactions);
+        int Score() => CollectionSummerFactory<IReaction>.GetFromMapping((IReaction ireaction) => ireaction.Value).ApplyTo(Reactions);
         void AddReaction(IReaction reaction) => Reactions.Add(reaction);
         #endregion
     }
