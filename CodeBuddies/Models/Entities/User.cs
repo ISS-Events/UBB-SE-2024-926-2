@@ -1,7 +1,7 @@
-﻿using CodeBuddies.Models.Entities.Interfaces;
+﻿using System.Drawing;
+using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Utils;
 using CodeBuddies.Utils.StreamProcessors;
-using System.Drawing;
 
 namespace CodeBuddies.Models.Entities
 {
@@ -32,16 +32,11 @@ namespace CodeBuddies.Models.Entities
             => CollectionStringifier<ICategory>.ApplyTo(CategoriesModeratedList);
         private string ToStringBadgeList()
             => CollectionStringifier<IBadge>.ApplyTo(BadgeList);
-
         public override string ToString()
-            {
-                return $"User(id: {ID}, name: {Name}) "
-                + $"notifications: {ToStringNotificationList()}"
-                + $"categoriesModerated: {ToStringCategoryList()}"
-                + $"badges: {ToStringBadgeList()}";
-            }
-        }
+            => $"User(id: {ID}, name: {Name}) "
+            + $"notifications: {ToStringNotificationList()}"
+            + $"categoriesModerated: {ToStringCategoryList()}"
+            + $"badges: {ToStringBadgeList()}";
         #endregion
-}
-}
+    }
 }
