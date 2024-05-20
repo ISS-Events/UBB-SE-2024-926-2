@@ -1,92 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities.Interfaces;
+using CodeBuddies.Utils;
 
 namespace CodeBuddies.Models.Entities
 {
     public class Session : ISession
     {
-        #region Fields
-        private long id;
-        private long ownerId;
-        private string name;
-        private DateTime creationDate;
-        private DateTime lastEditDate;
-        private List<long> buddies;
-        private List<IMessage> messages;
-        private List<ICodeContribution> codeContributions;
-        private List<ICodeReviewSection> codeReviewSections;
-        private List<string> filePaths;
-        private ITextEditor textEditor;
-        private IDrawingBoard drawingBoard;
-        #endregion
-
         #region Properties
-        public long Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-        public long OwnerId
-        {
-            get { return ownerId; }
-            set { ownerId = value; }
-        }
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public DateTime CreationDate
-        {
-            get { return creationDate; }
-            set { creationDate = value; }
-        }
-        public DateTime LastEditDate
-        {
-            get { return lastEditDate; }
-            set { lastEditDate = value; }
-        }
-        public List<long> Buddies
-        {
-            get { return buddies; }
-            set { buddies = value; }
-        }
-        public List<IMessage> Messages
-        {
-            get { return messages; }
-            set { messages = value; }
-        }
-        public List<ICodeContribution> CodeContributions
-        {
-            get { return codeContributions; }
-            set { codeContributions = value; }
-        }
-        public List<ICodeReviewSection> CodeReviewSections
-        {
-            get { return codeReviewSections; }
-            set { codeReviewSections = value; }
-        }
-        public List<string> FilePaths
-        {
-            get { return filePaths; }
-            set { filePaths = value; }
-        }
-        public ITextEditor TextEditor
-        {
-            get { return textEditor; }
-            set { textEditor = value; }
-        }
-        public IDrawingBoard DrawingBoard
-        {
-            get { return drawingBoard; }
-            set { drawingBoard = value; }
-        }
+        public long Id { get; set; }
+        public long OwnerId { get; set; }
+        public string Name { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime LastEditDate { get; set; }
+        public List<long> Buddies { get; set; }
+        public List<IMessage> Messages { get; set; }
+        public List<ICodeContribution> CodeContributions { get; set; }
+        public List<ICodeReviewSection> CodeReviewSections { get; set; }
+        public List<string> FilePaths { get; set; }
+        public ITextEditor TextEditor { get; set; }
+        public IDrawingBoard DrawingBoard { get; set; }
         #endregion
-
+        #region Constructors
         public Session(long sessionId, long ownerId, string name, DateTime creationDate, DateTime lastEditedDate, List<long> buddies, List<IMessage> messages, List<ICodeContribution> codeContributions, List<ICodeReviewSection> codeReviewSections, List<string> filePaths, ITextEditor textEditor, IDrawingBoard drawingBoard)
         {
             Id = sessionId;
@@ -102,7 +35,22 @@ namespace CodeBuddies.Models.Entities
             TextEditor = textEditor;
             DrawingBoard = drawingBoard;
         }
-
+        public Session()
+        {
+            Id = IDGenerator.Default();
+            OwnerId = IDGenerator.Default();
+            Name = string.Empty;
+            CreationDate = DateTime.Now;
+            LastEditDate = DateTime.Now;
+            Buddies = new List<long> { };
+            Messages = new List<IMessage> { };
+            CodeContributions = new List<ICodeContribution> { };
+            CodeReviewSections = new List<ICodeReviewSection> { };
+            FilePaths = new List<string> { };
+            TextEditor = new TextEditor();
+            DrawingBoard = new DrawingBoard();
+        }
+        #endregion
         #region Methods
 
         /// <summary>

@@ -1,31 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities.Interfaces;
 
 namespace CodeBuddies.Models.Entities
 {
     public class DrawingBoard : IDrawingBoard
     {
-        #region Fields
-        private string filePath;
-        #endregion
-
         #region Properties
-        public string FilePath
-        {
-            get { return filePath; }
-            set { filePath = value; }
-        }
+        public string FilePath { get; set; }
         #endregion
+        #region Constructors
+        public DrawingBoard()
+        {
+            FilePath = string.Empty;
+        }
 
         public DrawingBoard(string filePath)
         {
             FilePath = filePath;
         }
-
+        #endregion
         #region Methods
 
         /// <summary>
