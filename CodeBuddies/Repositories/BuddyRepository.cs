@@ -15,28 +15,28 @@ namespace CodeBuddies.Repositories
 
         public List<IBuddy> GetAllBuddies()
         {
-            List<IBuddy> buddies = new ();
+            List<IBuddy> buddies = new List<IBuddy>();
 
-            DataSet buddyDataSet = new ();
+            DataSet buddyDataSet = new DataSet();
             string selectAllBuddies = "SELECT * FROM Buddies";
-            SqlCommand selectAllBuddiesCommand = new (selectAllBuddies, sqlConnection);
+            SqlCommand selectAllBuddiesCommand = new SqlCommand(selectAllBuddies, sqlConnection);
             dataAdapter.SelectCommand = selectAllBuddiesCommand;
             buddyDataSet.Clear();
             dataAdapter.Fill(buddyDataSet, "Buddies");
 
             foreach (DataRow buddyRow in buddyDataSet.Tables["Buddies"].Rows)
             {
-                SqlDataAdapter notificationsDataAdapter = new ();
+                SqlDataAdapter notificationsDataAdapter = new SqlDataAdapter();
 
-                DataSet notificationDataSet = new ();
+                DataSet notificationDataSet = new DataSet();
                 string notificationQuery = "SELECT * FROM Notifications where receiver_id = @id";
-                SqlCommand selectAllNotificationsForSpecificBuddyCommand = new (notificationQuery, sqlConnection);
+                SqlCommand selectAllNotificationsForSpecificBuddyCommand = new SqlCommand(notificationQuery, sqlConnection);
                 notificationsDataAdapter.SelectCommand = selectAllNotificationsForSpecificBuddyCommand;
                 selectAllNotificationsForSpecificBuddyCommand.Parameters.AddWithValue("@id", buddyRow["id"]);
                 notificationDataSet.Clear();
                 notificationsDataAdapter.Fill(notificationDataSet, "Notifications");
 
-                List<INotification> notifications = new ();
+                List<Notification> notifications = new List<Notification>();
 
                 foreach (DataRow notificationRow in notificationDataSet.Tables["Notifications"].Rows)
                 {
@@ -79,15 +79,15 @@ namespace CodeBuddies.Repositories
 
         public void ClearDatabase()
         {
-            List<string> tables = new ()
+            List<string> tables = new List<string>
             {
-                "BuddiesSessions", "MessagesCodeReviews", "MessagesSessions", "CodeReviewsSessions", "Notifications",
-                "Sessions", "Messages", "CodeReviews", "CodeContributions", "Buddies"
+                "BuddiesSessions", "MessagesCodeReviews", "MessagesSessions", "CodeReviewsSessions",
+                "Notifications", "Sessions", "Messages", "CodeReviews", "CodeContributions", "Buddies"
             };
             foreach (string table in tables)
             {
                 string deleteNotificationQuery = $"DELETE FROM {table}";
-                using (SqlCommand deleteCommand = new (deleteNotificationQuery, sqlConnection))
+                using (SqlCommand deleteCommand = new SqlCommand(deleteNotificationQuery, sqlConnection))
                 {
                     deleteCommand.ExecuteNonQuery();
                 }
@@ -99,13 +99,15 @@ namespace CodeBuddies.Repositories
             string insertQuery = "INSERT INTO Buddies VALUES (@BuddyId, @BuddyName, @BuddyProfile, @Status)";
             try
             {
-                using SqlCommand insertCommand = new (insertQuery, sqlConnection);
-                insertCommand.Parameters.AddWithValue("@BuddyId", buddyId);
-                insertCommand.Parameters.AddWithValue("@BuddyName", buddyName);
-                insertCommand.Parameters.AddWithValue("@BuddyProfile", buddyProfile);
-                insertCommand.Parameters.AddWithValue("@Status", status);
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, sqlConnection))
+                {
+                    insertCommand.Parameters.AddWithValue("@BuddyId", buddyId);
+                    insertCommand.Parameters.AddWithValue("@BuddyName", buddyName);
+                    insertCommand.Parameters.AddWithValue("@BuddyProfile", buddyProfile);
+                    insertCommand.Parameters.AddWithValue("@Status", status);
 
-                insertCommand.ExecuteNonQuery();
+                    insertCommand.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {

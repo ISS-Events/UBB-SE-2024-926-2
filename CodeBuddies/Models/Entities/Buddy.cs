@@ -10,7 +10,7 @@ namespace CodeBuddies.Models.Entities
         public string BuddyName { get; set; }
         public string ProfilePhotoUrl { get; set; }
         public string Status { get; set; }
-        public List<INotification> Notifications { get; set; }
+        public List<Notification> Notifications { get; set; }
         #endregion
         #region Constructors
         public Buddy()
@@ -19,9 +19,9 @@ namespace CodeBuddies.Models.Entities
             BuddyName = string.Empty;
             ProfilePhotoUrl = string.Empty;
             Status = string.Empty;
-            Notifications = new List<INotification>();
+            Notifications = new List<Notification>();
         }
-        public Buddy(long buddyId, string buddyName, string profilePhotoUrl, string status, List<INotification> notifications)
+        public Buddy(long buddyId, string buddyName, string profilePhotoUrl, string status, List<Notification> notifications)
         {
             Id = buddyId;
             BuddyName = buddyName;

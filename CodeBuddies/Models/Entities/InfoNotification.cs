@@ -11,7 +11,6 @@
         {
         }
         #endregion
-        #region Methods
 
         /// <summary>
         /// Mark the notification as read
@@ -20,6 +19,5 @@
         {
             // mark as read
         }
-        #endregion
     }
 }
