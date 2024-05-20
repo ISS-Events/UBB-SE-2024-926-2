@@ -2,7 +2,9 @@
 {
     public interface ICategory
     {
+        #region Properties
         long ID { get; set; }
         string Name { get; set; }
+        #endregion
     }
 }

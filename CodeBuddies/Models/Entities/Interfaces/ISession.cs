@@ -2,6 +2,7 @@
 {
     public interface ISession
     {
+        #region Properties
         List<long> Buddies { get; set; }
         List<ICodeContribution> CodeContributions { get; set; }
         List<ICodeReviewSection> CodeReviewSections { get; set; }
@@ -14,7 +15,8 @@
         string Name { get; set; }
         long OwnerId { get; set; }
         ITextEditor TextEditor { get; set; }
-
+        #endregion
+        #region Methods
         void AddBuddy(long buddyId);
         void AddCodeContribution(int buddyId, DateTime date, int contributionValue);
         void LeaveSession(long buddyId);
@@ -23,5 +25,6 @@
         void PostMessage(IMessage message);
         void RemoveBuddy(long buddyId);
         void UploadFile(string filePath);
+        #endregion
     }
 }
