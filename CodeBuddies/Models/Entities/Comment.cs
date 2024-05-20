@@ -1,10 +1,12 @@
-﻿using CodeBuddies.Utils;
+﻿using CodeBuddies.Models.Entities.Interfaces;
+using CodeBuddies.Utils;
 using CodeBuddies.Utils.StreamProcessors;
 
 namespace CodeBuddies.Models.Entities
 {
     public class Comment : IComment
     {
+        #region Properties
         public long ID { get; set; }
 
         public long UserID { get; set; }
@@ -15,6 +17,8 @@ namespace CodeBuddies.Models.Entities
 
         public DateTime DateOfLastEdit { get; set; }
         public List<IReaction> Reactions { get; set; }
+        #endregion
+        #region Constructor
         public Comment()
         {
             ID = IDGenerator.Default();
@@ -24,11 +28,14 @@ namespace CodeBuddies.Models.Entities
             DateOfLastEdit = DateTime.Now;
             Reactions = new ();
         }
+        #endregion
+        #region Methods
         public override string ToString()
         {
             return $"Comment {{postID: {ID}, userID: {UserID}, datePosted: {DatePosted}, dateOfLastEdit: {DateOfLastEdit})"
                 + $"{Content}"
                 + $"reactions: {CollectionStringifier<IReaction>.ApplyTo(Reactions)}}}";
         }
+        #endregion
     }
 }

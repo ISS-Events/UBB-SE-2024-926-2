@@ -1,9 +1,11 @@
-﻿using CodeBuddies.Utils.StreamProcessors;
+﻿using CodeBuddies.Models.Entities.Interfaces;
+using CodeBuddies.Utils.StreamProcessors;
 
 namespace CodeBuddies.Models.Entities
 {
     public class Question : IQuestion
     {
+        #region Properties
         public string? Title { get; set; }
         public ICategory? Category { get; set; }
         private readonly IPost post;
@@ -33,14 +35,15 @@ namespace CodeBuddies.Models.Entities
         {
             get => post.Reactions; set { post.Reactions = value; }
         }
+        #endregion
+        #region Constructor
         public Question()
         {
             post = new TextPost();
-#pragma warning disable IDE0028 // Simplify collection initialization
             Tags = new ();
-#pragma warning restore IDE0028 // Simplify collection initialization
         }
-
+        #endregion
+        #region Methods
         public override string ToString()
         {
             return $"Question(postID: {ID}, userID: {UserID}, title:{Title} , category: {Category})"
@@ -48,5 +51,6 @@ namespace CodeBuddies.Models.Entities
                 + $"reactions: {CollectionStringifier<IReaction>.ApplyTo(Reactions)}"
                 + $"tags: {CollectionStringifier<ITag>.ApplyTo(Tags)}";
         }
+        #endregion
     }
 }

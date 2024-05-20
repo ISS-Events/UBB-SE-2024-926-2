@@ -5,12 +5,15 @@ namespace CodeBuddies.Models.Entities
 {
     public class TextPost : IPost
     {
+        #region Properties
         public long ID { get; set; }
         public long UserID { get; set; }
         public string Content { get; set; }
         public DateTime DatePosted { get; set; }
         public DateTime DateOfLastEdit { get; set; }
         public List<IReaction> Reactions { get; set; }
+        #endregion
+        #region Constructors
         public TextPost(long postingUserID, string content)
         {
             ID = IDGenerator.RandomLong();
@@ -18,24 +21,22 @@ namespace CodeBuddies.Models.Entities
             Content = content;
             DatePosted = DateTime.Now;
             DateOfLastEdit = DateTime.Now;
-#pragma warning disable IDE0028 // Simplify collection initialization
             Reactions = new ();
-#pragma warning restore IDE0028 // Simplify collection initialization
         }
         public TextPost()
         {
             ID = IDGenerator.Default();
             Content = "None";
-#pragma warning disable IDE0028 // Simplify collection initialization
             Reactions = new ();
-#pragma warning restore IDE0028 // Simplify collection initialization
         }
-
+        #endregion
+        #region Methods
         public override string ToString()
         {
             return $"TextPost {{postID: {ID}, userID: {UserID}, datePosted: {DatePosted}, dateOfLastEdit: {DateOfLastEdit})" +
                 $"{Content}" +
                 $"reactions: {CollectionStringifier<IReaction>.ApplyTo(Reactions)}}}";
         }
+        #endregion
     }
 }
