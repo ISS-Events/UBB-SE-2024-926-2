@@ -16,14 +16,14 @@ namespace CodeBuddies.ViewModels
     {
         #region Fields
         private ObservableCollection<INotification> notifications;
-        private INotificationService notificationService;
-        private ISessionService sessionService;
+        private readonly INotificationService notificationService;
+        private readonly ISessionService sessionService;
         #endregion
 
         #region Commands
-        public RelayCommand<INotification> AcceptCommand => new RelayCommand<INotification>(AcceptInvite);
-        public RelayCommand<INotification> DeclineCommand => new RelayCommand<INotification>(DeclineInvite);
-        public RelayCommand<INotification> MarkReadCommand => new RelayCommand<INotification>(MarkReadNotification);
+        public RelayCommand<INotification> AcceptCommand => new (AcceptInvite);
+        public RelayCommand<INotification> DeclineCommand => new (DeclineInvite);
+        public RelayCommand<INotification> MarkReadCommand => new (MarkReadNotification);
         #endregion
 
         #region Properties
@@ -62,7 +62,7 @@ namespace CodeBuddies.ViewModels
                 // Raise the event to notify the other components they need to update their sessions list
                 GlobalEvents.RaiseBuddyAddedToSessionEvent(notification.ReceiverId, notification.SessionId);
             }
-            catch (EntityAlreadyExists error)
+            catch (EntityAlreadyExists)
             {
                 ShowErrorPopup("You are already a member of the session " + sessionService.GetSessionName(notification.SessionId));
             }
@@ -106,7 +106,7 @@ namespace CodeBuddies.ViewModels
             {
                 notificationService.RemoveNotification(notification);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // if failure, fetch again
                 Notifications = new ObservableCollection<INotification>(notificationService.GetAllNotificationsForCurrentBuddy());
