@@ -8,7 +8,7 @@ namespace CodeBuddies.Data
         : base(options)
         {
         }
-        //public DbSet<> Customers { get; set; }
+        // public DbSet<> Customers { get; set; }
         //// Other DbSets for your entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
