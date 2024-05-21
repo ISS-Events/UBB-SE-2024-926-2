@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using CodeBuddies.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CodeBuddies.Data
 {
@@ -33,7 +34,6 @@ namespace CodeBuddies.Data
         public DbSet<InfoNotification> InfoNotifications { get; set; }
         public DbSet<InviteNotification> InviteNotifications { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Reaction> Reactions { get; set; }
 
@@ -57,6 +57,22 @@ namespace CodeBuddies.Data
                 .HasOne<TextEditor>(s => (TextEditor)s.TextEditor)
                 .WithOne()
                 .HasForeignKey<Session>(s => s.Id);
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var clrType = entityType.ClrType;
+                foreach (var property in clrType.GetProperties())
+                {
+                    if (property.PropertyType == typeof(object))
+                    {
+                        modelBuilder.Entity(clrType).Ignore(property.Name);
+                    }
+                }
+            }
+            modelBuilder.Entity<Answer>()S
+            .HasMany(a => (List<IReaction>)a.Reactions) // Cast Reactions to List<Reaction>
+            .WithOne()
+            .HasForeignKey("AnswerId") // Use a non-existing property name to represent foreign key
+            .IsRequired(false);
         }
     }
 }
