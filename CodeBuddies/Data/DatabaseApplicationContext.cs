@@ -20,10 +20,10 @@ namespace CodeBuddies.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<TextEditor> TextEditors { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             // Configure entity filters and constraints here
-        }
+        }*/
     }
 }
