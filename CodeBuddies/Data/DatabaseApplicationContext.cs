@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
 using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeBuddies.Data

@@ -112,10 +112,10 @@ namespace CodeBuddiesTests
         [Test]
         public void Buddy_GetNotifications_ShouldReturnTheNotifications()
         {
-            List<Notification> expectedNotifications = new List<Notification>();
+            List<INotification> expectedNotifications = new List<INotification>();
             buddyMock.Setup(buddy => buddy.Notifications).Returns(expectedNotifications);
 
-            List<Notification> actualNotifications = buddyMock.Object.Notifications;
+            List<INotification> actualNotifications = buddyMock.Object.Notifications;
 
             Assert.AreEqual(expectedNotifications, actualNotifications);
         }
@@ -123,7 +123,7 @@ namespace CodeBuddiesTests
         [Test]
         public void Buddy_SetNotifications_ShouldSetTheNotifications()
         {
-            List<Notification> expectedNotifications = new List<Notification>();
+            List<INotification> expectedNotifications = new List<INotification>();
             buddyMock.SetupSet(buddy => buddy.Notifications = expectedNotifications);
 
             buddyMock.Object.Notifications = expectedNotifications;
