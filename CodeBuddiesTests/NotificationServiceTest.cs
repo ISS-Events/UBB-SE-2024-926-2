@@ -55,7 +55,7 @@ namespace CodeBuddiesTests
             {
                 new Mock<INotification>().SetupAllProperties().Object
             };
-            expectedNotifications[0].NotificationId = 1;
+            expectedNotifications[0].Id = 1;
             expectedNotifications[0].TimeStamp = new DateTime(2024, 4, 30);
             expectedNotifications[0].Type = "type";
             expectedNotifications[0].Status = "status";
@@ -105,7 +105,7 @@ namespace CodeBuddiesTests
             long buddyId = 2;
             var mockNotificationRepository = new Mock<INotificationRepository>();
             var notification = new Mock<INotification>();
-            notification.SetupGet(notification => notification.NotificationId).Returns(notificationId);
+            notification.SetupGet(notification => notification.Id).Returns(notificationId);
             notification.SetupGet(notification => notification.ReceiverId).Returns(buddyId);
             mockNotificationRepository.Setup(repository => repository.GetAllByBuddyId(buddyId)).Returns((List<INotification>)null);
             var notificationService = new NotificationService(mockNotificationRepository.Object);
@@ -124,7 +124,7 @@ namespace CodeBuddiesTests
             {
                 new Mock<INotification>().Object,
             };
-            notifications[0].NotificationId = 1;
+            notifications[0].Id = 1;
             notifications[0].ReceiverId = buddyId;
             var notification = notifications[0];
             mockNotificationRepository.Setup(repository => repository.GetAllByBuddyId(buddyId)).Returns(notifications);

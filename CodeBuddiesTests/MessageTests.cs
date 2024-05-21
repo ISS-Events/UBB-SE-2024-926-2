@@ -17,10 +17,10 @@ namespace CodeBuddiesTests
          
             long expectedMessageId = 123;
             var messageMock = new Mock<IMessage>();
-            messageMock.SetupGet(m => m.MessageId).Returns(expectedMessageId);
+            messageMock.SetupGet(m => m.Id).Returns(expectedMessageId);
 
            
-            long messageId = messageMock.Object.MessageId;
+            long messageId = messageMock.Object.Id;
 
             Assert.AreEqual(expectedMessageId, messageId);
         }
@@ -31,12 +31,12 @@ namespace CodeBuddiesTests
             
             long newMessageId = 456;
             var messageMock = new Mock<IMessage>();
-            messageMock.SetupProperty(m => m.MessageId);
+            messageMock.SetupProperty(m => m.Id);
 
-            messageMock.Object.MessageId = newMessageId;
+            messageMock.Object.Id = newMessageId;
 
             
-            Assert.AreEqual(newMessageId, messageMock.Object.MessageId);
+            Assert.AreEqual(newMessageId, messageMock.Object.Id);
         }
 
         [Test]
