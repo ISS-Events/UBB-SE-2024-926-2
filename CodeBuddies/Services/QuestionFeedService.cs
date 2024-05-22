@@ -10,15 +10,19 @@ namespace CodeBuddies.Services
 {
     internal class QuestionFeedService : IQuestionFeedService
     {
+        #region Fields
         private readonly IQuestionFeedRepository repository;
 
         private readonly List<Question> currentQuestions;
+        #endregion
+        #region Constructor
         public QuestionFeedService(IQuestionFeedRepository repository)
         {
             this.repository = repository;
             currentQuestions = GetAllQuestions();
         }
-
+        #endregion
+        #region Methods
         public User GetUser(long userId)
         {
             return repository.GetUser(userId);
@@ -174,7 +178,9 @@ namespace CodeBuddies.Services
         {
             long userID = IDGenerator.RandomLong();
             long questionId = IDGenerator.RandomLong();
-            Question question = new QuestionBuilder().Begin().SetId(questionId).SetUserId(userID).SetContent(content).SetCategory(category).SetTitle(title).End();
+            Question question = new QuestionBuilder().Begin()
+                .SetId(questionId).SetUserId(userID).SetContent(content).SetCategory(category).SetTitle(title)
+                .End();
             repository.AddQuestion(question);
         }
 
@@ -221,5 +227,6 @@ namespace CodeBuddies.Services
                 .Where(QuestionIsPostedWithinPreviousCalendarYear)
                 .Count();
         }
+        #endregion
     }
 }
