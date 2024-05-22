@@ -17,7 +17,6 @@ namespace CodeBuddies.Models.Entities
             ID = IDGenerator.Default();
             Name = "New Badge";
             Description = "None provided";
-
         }
         #endregion
         #region Methods
