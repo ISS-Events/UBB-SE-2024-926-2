@@ -11,7 +11,7 @@ namespace CodeBuddies
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); // Arunca eroare pentru ca repositoruyurile potrivite nu sunt asociate in main :)
         }
     }
 }

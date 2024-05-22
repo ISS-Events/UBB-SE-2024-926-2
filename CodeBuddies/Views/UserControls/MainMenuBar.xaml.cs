@@ -1,14 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CodeBuddies;
-using CodeBuddies.ViewModels;
+using CodeBuddies.Services.Interfaces;
 
 namespace CodeBuddies.Views.UserControls
 {
@@ -17,14 +9,16 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class MainMenuBar : UserControl
     {
-        public MainMenuBar()
+        private ISessionService sessionService;
+        public MainMenuBar(ISessionService sessionService)
         {
             InitializeComponent();
+            this.sessionService = sessionService;
         }
 
         private void NewSessionButtonClicked(object sender, RoutedEventArgs e)
         {
-            CreateNewSessionPopUp createNewSessionPopUp = new CreateNewSessionPopUp();
+            CreateNewSessionPopUp createNewSessionPopUp = new CreateNewSessionPopUp(sessionService);
             createNewSessionPopUp.ShowDialog();
         }
     }

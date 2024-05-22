@@ -3,19 +3,14 @@ using System.Windows.Input;
 using CodeBuddies.Models.Entities;
 using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.MVVM;
-using CodeBuddies.Repositories;
-using CodeBuddies.Repositories.Interfaces;
-using CodeBuddies.Resources.Data;
-using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
-
 namespace CodeBuddies.ViewModels
 {
     public class SessionsListViewModel : ViewModelBase
     {
         #region Fields
         private ObservableCollection<ISession> sessions;
-        private ISessionService sessionService;
+        private readonly ISessionService sessionService;
         private string searchBySessionName;
         #endregion
 
@@ -55,12 +50,12 @@ namespace CodeBuddies.ViewModels
 
         #endregion
 
-        public SessionsListViewModel()
+        public SessionsListViewModel(ISessionService sessionService)
         {
+            this.sessionService = sessionService;
             GlobalEvents.BuddyAddedToSession += HandleBuddyAddedToSession;
-            ISessionRepository sessionRepository = new SessionRepository();
-            sessionService = new SessionService(sessionRepository);
-            Sessions = new ObservableCollection<ISession>(sessionService.GetAllSessionsForCurrentBuddy());
+            sessions = new ObservableCollection<ISession>(sessionService.GetAllSessionsForCurrentBuddy());
+            searchBySessionName = string.Empty;
         }
 
         #region Methods

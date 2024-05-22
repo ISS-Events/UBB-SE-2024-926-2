@@ -14,6 +14,13 @@ namespace CodeBuddies.ViewModels
 {
     public class NotificationsPanelViewModel : ViewModelBase
     {
+        public NotificationsPanelViewModel(INotificationService notificationService, ISessionService sessionService)
+        {
+            this.notificationService = notificationService;
+            this.sessionService = sessionService;
+            notifications = new ObservableCollection<Notification>(notificationService.GetAllNotificationsForCurrentBuddy());
+        }
+
         #region Fields
         private ObservableCollection<Notification> notifications;
         private readonly INotificationService notificationService;
@@ -40,16 +47,6 @@ namespace CodeBuddies.ViewModels
             }
         }
         #endregion
-
-        public NotificationsPanelViewModel()
-        {
-            // TODO inject these more cleanly
-            INotificationRepository notificationRepository = new NotificationRepository();
-            notificationService = new NotificationService(notificationRepository);
-            ISessionRepository sessionRepository = new SessionRepository();
-            sessionService = new SessionService(sessionRepository);
-            Notifications = new ObservableCollection<Notification>(notificationService.GetAllNotificationsForCurrentBuddy());
-        }
 
         #region Methods
         private void AcceptInvite(Notification notification)
