@@ -21,7 +21,7 @@ namespace CodeBuddies.Repositories
             SqlDataAdapter dataAdapter = new ();
 
             DataSet messagesDataSet = new ();
-            string selectAllMessagesForSpecificSession = "SELECT * FROM Messages m inner join MessagesSessions ms on m.id = ms.message_id where ms.session_id = @id ";
+            string selectAllMessagesForSpecificSession = "SELECT * FROM Messages m inner join MessagesSessions ms on m.i=Id = ms.MessageId where ms.SessionId = @id ";
             SqlCommand selectAllMessagesForSpecificSessionCommand = new (selectAllMessagesForSpecificSession, sqlConnection);
             selectAllMessagesForSpecificSessionCommand.Parameters.AddWithValue("@id", sessionId);
             dataAdapter.SelectCommand = selectAllMessagesForSpecificSessionCommand;
@@ -29,7 +29,7 @@ namespace CodeBuddies.Repositories
 
             foreach (DataRow messageRow in messagesDataSet.Tables["Messages"].Rows)
             {
-                Message currentMessage = new ((long)messageRow["id"], Convert.ToDateTime(messageRow["message_timestamp"]), messageRow["content"].ToString(), (long)messageRow["sender_id"]);
+                Message currentMessage = new ((long)messageRow["Id"], Convert.ToDateTime(messageRow["Timestamp"]), messageRow["Content"].ToString(), (long)messageRow["SenderId"]);
                 sessionMessages.Add(currentMessage);
             }
 
@@ -42,7 +42,7 @@ namespace CodeBuddies.Repositories
 
             SqlDataAdapter dataAdapter = new ();
             DataSet codeContributionsDataSet = new ();
-            string selectAllCodeContributionsForSpecificSession = "SELECT * FROM CodeContributions where session_id = @id";
+            string selectAllCodeContributionsForSpecificSession = "SELECT * FROM CodeContributions where SessionId = @id";
             SqlCommand selectAllCodeContributionsForSpecificSessionCommand = new (selectAllCodeContributionsForSpecificSession, sqlConnection);
             selectAllCodeContributionsForSpecificSessionCommand.Parameters.AddWithValue("@id", sessionId);
             dataAdapter.SelectCommand = selectAllCodeContributionsForSpecificSessionCommand;
@@ -50,7 +50,7 @@ namespace CodeBuddies.Repositories
 
             foreach (DataRow codeContributionRow in codeContributionsDataSet.Tables["CodeContributions"].Rows)
             {
-                CodeContribution currentCodeContribution = new ((long)codeContributionRow["buddy_id"], Convert.ToDateTime(codeContributionRow["contribution_date"]), (int)codeContributionRow["contribution_value"]);
+                CodeContribution currentCodeContribution = new ((long)codeContributionRow["BuddyId"], Convert.ToDateTime(codeContributionRow["ContributionDate"]), (int)codeContributionRow["ContributionValue"]);
                 codeContributions.Add(currentCodeContribution);
             }
 
@@ -63,7 +63,7 @@ namespace CodeBuddies.Repositories
 
             SqlDataAdapter dataAdapter = new ();
             DataSet messagesDataSet = new ();
-            string selectAllMessagesForSpecificCodeReview = "SELECT * FROM Messages m inner join MessagesCodeReviews mcr on m.id = mcr.message_id where mcr.code_review_id = @id ";
+            string selectAllMessagesForSpecificCodeReview = "SELECT * FROM Messages m inner join MessagesCodeReviews mcr on m.Id = mcr.MessageId where mcr.CodeReviewId = @id";
             SqlCommand selectAllMessagesForSpecificCodeReviewCommand = new SqlCommand(selectAllMessagesForSpecificCodeReview, sqlConnection);
             selectAllMessagesForSpecificCodeReviewCommand.Parameters.AddWithValue("@id", codeReviewId);
             dataAdapter.SelectCommand = selectAllMessagesForSpecificCodeReviewCommand;
@@ -71,7 +71,7 @@ namespace CodeBuddies.Repositories
 
             foreach (DataRow messageRow in messagesDataSet.Tables["Messages"].Rows)
             {
-                Message currentMessage = new ((long)messageRow["id"], Convert.ToDateTime(messageRow["message_timestamp"]), messageRow["content"].ToString(), (long)messageRow["sender_id"]);
+                Message currentMessage = new ((long)messageRow["Id"], Convert.ToDateTime(messageRow["Timestamp"]), messageRow["Content"].ToString(), (long)messageRow["SenderId"]);
                 codeReviewMessages.Add(currentMessage);
             }
 
@@ -84,7 +84,7 @@ namespace CodeBuddies.Repositories
 
             SqlDataAdapter dataAdapter = new ();
             DataSet codeReviewSectionsDataSet = new ();
-            string selectAllCodeReviewSectionsForSpecificSession = "SELECT * FROM CodeReviews cr inner join CodeReviewsSessions crs on cr.id = crs.code_review_id where crs.session_id = @id ";
+            string selectAllCodeReviewSectionsForSpecificSession = "SELECT * FROM CodeReviews cr inner join CodeReviewsSessions crs on cr.Id = crs.CodeReviewId where crs.SessionId = @id ";
             SqlCommand selectAllCodeReviewSectionsForSpecificSessionCommand = new (selectAllCodeReviewSectionsForSpecificSession, sqlConnection);
             selectAllCodeReviewSectionsForSpecificSessionCommand.Parameters.AddWithValue("@id", sessionId);
             dataAdapter.SelectCommand = selectAllCodeReviewSectionsForSpecificSessionCommand;
@@ -93,12 +93,12 @@ namespace CodeBuddies.Repositories
             foreach (DataRow codeReviewSectionRow in codeReviewSectionsDataSet.Tables["CodeReviews"].Rows)
             {
                 bool isClosed = false;
-                if (codeReviewSectionRow["code_review_status"].ToString() != "closed")
+                if (codeReviewSectionRow["Status"].ToString() != "closed")
                 {
                     isClosed = true;
                 }
 
-                CodeReviewSection currentCodeReviewSection = new ((long)codeReviewSectionRow["id"], (long)codeReviewSectionRow["owner_id"], GetMessagesForSpecificCodeReview((long)codeReviewSectionRow["id"]), codeReviewSectionRow["code_section"].ToString(), isClosed);
+                CodeReviewSection currentCodeReviewSection = new ((long)codeReviewSectionRow["Id"], (long)codeReviewSectionRow["OwnerId"], GetMessagesForSpecificCodeReview((long)codeReviewSectionRow["Id"]), codeReviewSectionRow["CodeSection"].ToString(), isClosed);
                 codeReviewSections.Add(currentCodeReviewSection);
             }
 
@@ -119,7 +119,7 @@ namespace CodeBuddies.Repositories
 
             foreach (DataRow currentRow in buddiesDataSet.Tables["BuddiesSessions"].Rows)
             {
-                sessionBuddies.Add((long)currentRow["buddy_id"]);
+                sessionBuddies.Add((long)currentRow["BuddyId"]);
             }
 
             return sessionBuddies;
@@ -130,7 +130,7 @@ namespace CodeBuddies.Repositories
             List<Session> sessions = new ();
 
             DataSet sessionDataSet = new ();
-            string selectAllSessions = "SELECT * FROM Sessions s INNER JOIN BuddiesSessions bs ON s.id = bs.session_id WHERE bs.buddy_id=@user_id";
+            string selectAllSessions = "SELECT * FROM Sessions s INNER JOIN BuddiesSessions bs ON s.Id = bs.session_id WHERE bs.buddy_id=@user_id";
             SqlCommand selectAllSessionsCommand = new (selectAllSessions, sqlConnection);
             selectAllSessionsCommand.Parameters.AddWithValue("@user_id", buddyId);
             dataAdapter.SelectCommand = selectAllSessionsCommand;
@@ -138,12 +138,12 @@ namespace CodeBuddies.Repositories
 
             foreach (DataRow sessionRow in sessionDataSet.Tables["Sessions"].Rows)
             {
-                List<Message> sessionMessages = GetMessagesForSpecificSession((long)sessionRow["id"]);
-                List<long> sessionBuddies = GetBuddiesForSpecificSession((long)sessionRow["id"]);
-                List<CodeContribution> sessionCodeContributions = GetCodeContributionsForSpecificSession((long)sessionRow["id"]);
-                List<CodeReviewSection> sessionCodeReviewSections = GetCodeReviewSectionsForSpecificSession((long)sessionRow["id"]);
+                List<Message> sessionMessages = GetMessagesForSpecificSession((long)sessionRow["Id"]);
+                List<long> sessionBuddies = GetBuddiesForSpecificSession((long)sessionRow["Id"]);
+                List<CodeContribution> sessionCodeContributions = GetCodeContributionsForSpecificSession((long)sessionRow["Id"]);
+                List<CodeReviewSection> sessionCodeReviewSections = GetCodeReviewSectionsForSpecificSession((long)sessionRow["Id"]);
 
-                Session session = new ((long)sessionRow["id"], (long)sessionRow["owner_id"], sessionRow["session_name"].ToString(), Convert.ToDateTime(sessionRow["creation_date"]), Convert.ToDateTime(sessionRow["last_edit_date"]), sessionBuddies, sessionMessages, sessionCodeContributions, sessionCodeReviewSections, new List<string>(), new TextEditor("black", new List<string>()), new DrawingBoard(string.Empty));
+                Session session = new ((long)sessionRow["Id"], (long)sessionRow["OwnerId"], sessionRow["Name"].ToString(), Convert.ToDateTime(sessionRow["CreationDate"]), Convert.ToDateTime(sessionRow["LastEditDate"]), sessionBuddies, sessionMessages, sessionCodeContributions, sessionCodeReviewSections, new List<string>(), new TextEditor("black", new List<string>()), new DrawingBoard(string.Empty));
                 sessions.Add(session);
             }
 
@@ -154,7 +154,7 @@ namespace CodeBuddies.Repositories
         {
             string sessionName;
 
-            string selectSessionNameQuery = "SELECT session_name FROM Sessions WHERE id = @SessionId";
+            string selectSessionNameQuery = "SELECT Name FROM Sessions WHERE Id = @SessionId";
 
             try
             {
@@ -178,7 +178,7 @@ namespace CodeBuddies.Repositories
             long freeSessionId = 0;
 
             // Execute a query to find a free session id
-            string query = "SELECT TOP 1 id FROM Sessions ORDER BY id DESC";
+            string query = "SELECT TOP 1 Id FROM Sessions ORDER BY Id DESC";
             using (SqlCommand command = new (query, sqlConnection))
             {
                 object result = command.ExecuteScalar();
@@ -200,7 +200,7 @@ namespace CodeBuddies.Repositories
         #region Adders
         public void AddBuddyMemberToSession(long buddyId, long sessionId)
         {
-            string insertQuery = "INSERT INTO BuddiesSessions (buddy_id, session_id) VALUES (@BuddyId, @SessionId)";
+            string insertQuery = "INSERT INTO BuddiesSessions (BuddyId, SessionId) VALUES (@BuddyId, @SessionId)";
             try
             {
                 using SqlCommand insertCommand = new (insertQuery, sqlConnection);
@@ -222,8 +222,8 @@ namespace CodeBuddies.Repositories
             // Get a free session id
             long freeSessionId = GetFreeSessionId();
 
-            string insertQuery = "INSERT INTO Sessions (id, owner_id, session_name, creation_date, last_edit_date) VALUES (@SessionId, @OwnerId, @SessionName, @CreationDate, @LastEditDate)";
-            string insertMemberQuery = "INSERT INTO BuddiesSessions (buddy_id, session_id) VALUES (@BuddyId, @SessionId)";
+            string insertQuery = "INSERT INTO Sessions (Id, OwnerId, Name, CreationDate, LastEditDate) VALUES (@SessionId, @OwnerId, @SessionName, @CreationDate, @LastEditDate)";
+            string insertMemberQuery = "INSERT INTO BuddiesSessions (BuddyId, SessionId) VALUES (@BuddyId, @SessionId)";
 
             try
             {

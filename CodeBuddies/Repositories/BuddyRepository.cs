@@ -27,32 +27,32 @@ namespace CodeBuddies.Repositories
                 SqlDataAdapter notificationsDataAdapter = new ();
 
                 DataSet notificationDataSet = new ();
-                string notificationQuery = "SELECT * FROM Notifications where receiver_id = @id";
+                string notificationQuery = "SELECT * FROM Notification where ReceiverId = @id";
                 SqlCommand selectAllNotificationsForSpecificBuddyCommand = new (notificationQuery, sqlConnection);
                 notificationsDataAdapter.SelectCommand = selectAllNotificationsForSpecificBuddyCommand;
-                selectAllNotificationsForSpecificBuddyCommand.Parameters.AddWithValue("@id", buddyRow["id"]);
+                selectAllNotificationsForSpecificBuddyCommand.Parameters.AddWithValue("@id", buddyRow["Id"]);
                 notificationDataSet.Clear();
-                notificationsDataAdapter.Fill(notificationDataSet, "Notifications");
+                notificationsDataAdapter.Fill(notificationDataSet, "Notification");
 
                 List<Notification> notifications = new ();
 
-                foreach (DataRow notificationRow in notificationDataSet.Tables["Notifications"].Rows)
+                foreach (DataRow notificationRow in notificationDataSet.Tables["Notification"].Rows)
                 {
                     Notification currentNotification;
 
-                    if (notificationRow["notification_type"].ToString() == "invite")
+                    if (notificationRow["Type"].ToString() == "invite")
                     {
-                        currentNotification = new InviteNotification((long)notificationRow["id"], (DateTime)notificationRow["notification_timestamp"], notificationRow["notification_type"].ToString(), notificationRow["notification_status"].ToString(), notificationRow["notification_description"].ToString(), (long)notificationRow["sender_id"], (long)notificationRow["receiver_id"], (long)notificationRow["session_id"], false);
+                        currentNotification = new InviteNotification((long)notificationRow["Id"], (DateTime)notificationRow["Timestamp"], notificationRow["Type"].ToString(), notificationRow["Status"].ToString(), notificationRow["Description"].ToString(), (long)notificationRow["SenderId"], (long)notificationRow["ReceiverId"], (long)notificationRow["SessionId"], false);
                     }
                     else
                     {
-                        currentNotification = new InfoNotification((long)notificationRow["id"], (DateTime)notificationRow["notification_timestamp"], notificationRow["notification_type"].ToString(), notificationRow["notification_status"].ToString(), notificationRow["notification_description"].ToString(), (long)notificationRow["sender_id"], (long)notificationRow["receiver_id"], (long)notificationRow["session_id"]);
+                        currentNotification = new InfoNotification((long)notificationRow["Id"], (DateTime)notificationRow["Timestamp"], notificationRow["Type"].ToString(), notificationRow["Status"].ToString(), notificationRow["Description"].ToString(), (long)notificationRow["SenderId"], (long)notificationRow["ReceiverId"], (long)notificationRow["SessionId"]);
                     }
 
                     notifications.Add(currentNotification);
                 }
 
-                Buddy currentBudy = new ((long)buddyRow["id"], buddyRow["buddy_name"].ToString(), buddyRow["profile_photo_url"].ToString(), buddyRow["buddy_status"].ToString(), notifications);
+                Buddy currentBudy = new ((long)buddyRow["Id"], buddyRow["BuddyName"].ToString(), buddyRow["ProfilePhotoUrl"].ToString(), buddyRow["Status"].ToString(), notifications);
                 buddies.Add(currentBudy);
             }
 
@@ -79,7 +79,7 @@ namespace CodeBuddies.Repositories
         {
             List<string> tables = new ()
             {
-                "BuddiesSessions", "MessagesCodeReviews", "MessagesSessions", "CodeReviewsSessions", "Notifications",
+                "BuddiesSessions", "MessagesCodeReviews", "MessagesSessions", "CodeReviewsSessions", "Notification",
                 "Sessions", "Messages", "CodeReviews", "CodeContributions", "Buddies"
             };
             foreach (string table in tables)
