@@ -1,4 +1,4 @@
-﻿using CodeBuddies.Models.Entities.Interfaces;
+using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Utils;
 
 namespace CodeBuddies.Models.Entities
@@ -9,6 +9,7 @@ namespace CodeBuddies.Models.Entities
         public long ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
         #endregion
         #region Constructor
         public Badge()
@@ -16,6 +17,7 @@ namespace CodeBuddies.Models.Entities
             ID = IDGenerator.Default();
             Name = "New Badge";
             Description = "None provided";
+
         }
         #endregion
         #region Methods

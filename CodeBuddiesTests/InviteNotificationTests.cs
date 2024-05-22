@@ -32,8 +32,8 @@ namespace CodeBuddiesTests
             bool isAccepted = false;
 
             var mockInviteNotification = new Mock<INotification>();
-            mockInviteNotification.Setup(inviteNotification => inviteNotification.NotificationId).Returns(notificationId);
-            long actualNotificationId = mockInviteNotification.Object.NotificationId;
+            mockInviteNotification.Setup(inviteNotification => inviteNotification.Id).Returns(notificationId);
+            long actualNotificationId = mockInviteNotification.Object.Id;
             Assert.AreEqual(notificationId, actualNotificationId);
         }
 
@@ -173,7 +173,7 @@ namespace CodeBuddiesTests
             bool expectedIsAccepted = true;
             var mockNotification = new Mock<IInviteNotification>();
             mockNotification.Object.IsAccepted = expectedIsAccepted;
-            mockNotification.Object.NotificationId = 1;
+            mockNotification.Object.Id = 1;
             mockNotification.Object.SessionId = 1;
             mockNotification.Object.SenderId = 2;
             mockNotification.Object.ReceiverId = 3;

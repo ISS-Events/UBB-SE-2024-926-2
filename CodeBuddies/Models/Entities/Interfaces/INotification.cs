@@ -4,7 +4,7 @@
     {
         #region Properties
         string Description { get; set; }
-        long NotificationId { get; set; }
+        long Id { get; set; }
         long ReceiverId { get; set; }
         long SenderId { get; set; }
         long SessionId { get; set; }

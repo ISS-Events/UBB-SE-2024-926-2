@@ -51,7 +51,7 @@ namespace CodeBuddiesTests
                 expectedBuddies[0].BuddyName = "Buddy1";
                 expectedBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 expectedBuddies[0].Status = "active";
-                expectedBuddies[0].Notifications = new List<Notification>();
+                expectedBuddies[0].Notifications = new List<INotification>();
                 var buddyService = new BuddyService(new Mock<IBuddyRepository>().Object);
                 buddyService.ActiveBuddies = expectedBuddies;
 
@@ -72,7 +72,7 @@ namespace CodeBuddiesTests
                 newBuddies[0].BuddyName = "Buddy1";
                 newBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 newBuddies[0].Status = "active";
-                newBuddies[0].Notifications = new List<Notification>();
+                newBuddies[0].Notifications = new List<INotification>();
 
                 buddyService.ActiveBuddies = newBuddies;
 
@@ -90,7 +90,7 @@ namespace CodeBuddiesTests
                 expectedBuddies[0].BuddyName = "Buddy1";
                 expectedBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 expectedBuddies[0].Status = "inactive";
-                expectedBuddies[0].Notifications = new List<Notification>();
+                expectedBuddies[0].Notifications = new List<INotification>();
                 var buddyService = new BuddyService(new Mock<IBuddyRepository>().Object);
                 buddyService.ActiveBuddies = expectedBuddies;
 
@@ -111,7 +111,7 @@ namespace CodeBuddiesTests
                 newBuddies[0].BuddyName = "Buddy1";
                 newBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 newBuddies[0].Status = "active";
-                newBuddies[0].Notifications = new List<Notification>();
+                newBuddies[0].Notifications = new List<INotification>();
 
                 buddyService.ActiveBuddies = newBuddies;
 
@@ -129,7 +129,7 @@ namespace CodeBuddiesTests
                 expectedActiveBuddies[0].BuddyName = "Buddy1";
                 expectedActiveBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 expectedActiveBuddies[0].Status = "active";
-                expectedActiveBuddies[0].Notifications = new List<Notification>();
+                expectedActiveBuddies[0].Notifications = new List<INotification>();
                 var mockRepository = new Mock<IBuddyRepository>();
                 mockRepository.Setup(repository => repository.GetActiveBuddies()).Returns(expectedActiveBuddies);
 
@@ -160,7 +160,7 @@ namespace CodeBuddiesTests
                 expectedInactiveBuddies[0].BuddyName = "Buddy1";
                 expectedInactiveBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 expectedInactiveBuddies[0].Status = "inactive";
-                expectedInactiveBuddies[0].Notifications = new List<Notification>();
+                expectedInactiveBuddies[0].Notifications = new List<INotification>();
                 var mockRepository = new Mock<IBuddyRepository>();
                 mockRepository.Setup(repository => repository.GetInactiveBuddies()).Returns(expectedInactiveBuddies);
 
@@ -204,12 +204,12 @@ namespace CodeBuddiesTests
                 expectedBuddies[0].BuddyName = "Buddy1";
                 expectedBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 expectedBuddies[0].Status = "inactive";
-                expectedBuddies[0].Notifications = new List<Notification>();
+                expectedBuddies[0].Notifications = new List<INotification>();
                 expectedBuddies[1].Id = 2;
                 expectedBuddies[1].BuddyName = "Buddy2";
                 expectedBuddies[1].ProfilePhotoUrl = "profile2.jpg";
                 expectedBuddies[1].Status = "active";
-                expectedBuddies[1].Notifications = new List<Notification>();
+                expectedBuddies[1].Notifications = new List<INotification>();
                 var mockBuddyRepository = new Mock<IBuddyRepository>();
                 mockBuddyRepository.Setup(repository => repository.GetAllBuddies()).Returns(expectedBuddies);
                 var buddyService = new BuddyService(mockBuddyRepository.Object);
@@ -232,12 +232,12 @@ namespace CodeBuddiesTests
                 allBuddies[0].BuddyName = "Buddy1";
                 allBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 allBuddies[0].Status = "inactive";
-                allBuddies[0].Notifications = new List<Notification>();
+                allBuddies[0].Notifications = new List<INotification>();
                 allBuddies[1].Id = 2;
                 allBuddies[1].BuddyName = "Buddy2";
                 allBuddies[1].ProfilePhotoUrl = "profile2.jpg";
                 allBuddies[1].Status = "active";
-                allBuddies[1].Notifications = new List<Notification>();
+                allBuddies[1].Notifications = new List<INotification>();
                 var mockRepository = new Mock<IBuddyRepository>();
                 mockRepository.Setup(repository => repository.GetAllBuddies()).Returns(allBuddies);
                 var buddyService = new BuddyService(mockRepository.Object);
@@ -267,7 +267,7 @@ namespace CodeBuddiesTests
                 var mockBuddyRepository = new Mock<IBuddyRepository>();
                 var buddies = new List<IBuddy>
                 {
-                    new Buddy(1, "Buddy1", "profile1.jpg", "active", new List<Notification>()),
+                    new Buddy(1, "Buddy1", "profile1.jpg", "active", new List<INotification>()),
                 };
                 mockBuddyRepository.Setup(repo => repo.GetAllBuddies()).Returns(buddies);
                 var buddyService = new BuddyService(mockBuddyRepository.Object);
@@ -284,7 +284,7 @@ namespace CodeBuddiesTests
                 var mockBuddyRepository = new Mock<IBuddyRepository>();
                 var buddies = new List<IBuddy>
                 {
-                    new Buddy(1, "Buddy1", "profile1.jpg", "active", new List<Notification>()),
+                    new Buddy(1, "Buddy1", "profile1.jpg", "active", new List<INotification>()),
                 };
                 mockBuddyRepository.Setup(repo => repo.GetAllBuddies()).Returns(buddies);
                 var buddyService = new BuddyService(mockBuddyRepository.Object);
@@ -305,7 +305,7 @@ namespace CodeBuddiesTests
                 expectedActiveBuddies[0].BuddyName = "Buddy1";
                 expectedActiveBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 expectedActiveBuddies[0].Status = "active";
-                expectedActiveBuddies[0].Notifications = new List<Notification>();
+                expectedActiveBuddies[0].Notifications = new List<INotification>();
                 var mockBuddyRepository = new Mock<IBuddyRepository>();
                 mockBuddyRepository.Setup(repository => repository.GetActiveBuddies()).Returns(expectedActiveBuddies);
                 var buddyService = new BuddyService(mockBuddyRepository.Object);
@@ -338,7 +338,7 @@ namespace CodeBuddiesTests
                 expectedInactiveBuddies[0].BuddyName = "Buddy1";
                 expectedInactiveBuddies[0].ProfilePhotoUrl = "profile1.jpg";
                 expectedInactiveBuddies[0].Status = "inactive";
-                expectedInactiveBuddies[0].Notifications = new List<Notification>();
+                expectedInactiveBuddies[0].Notifications = new List<INotification>();
                 var mockBuddyRepository = new Mock<IBuddyRepository>();
                 mockBuddyRepository.Setup(repository => repository.GetInactiveBuddies()).Returns(expectedInactiveBuddies);
                 var buddyService = new BuddyService(mockBuddyRepository.Object);

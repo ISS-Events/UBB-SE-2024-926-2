@@ -45,7 +45,7 @@ namespace CodeBuddies.Services
         #region Methods
         public void RemoveNotification(INotification notification)
         {
-            notificationRepository.RemoveById(notification.NotificationId);
+            notificationRepository.RemoveById(notification.Id);
         }
 
         public void AddNotification(INotification notification)
