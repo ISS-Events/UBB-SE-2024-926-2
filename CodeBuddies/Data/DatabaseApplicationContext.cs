@@ -68,7 +68,7 @@ namespace CodeBuddies.Data
                     }
                 }
             }
-            modelBuilder.Entity<Answer>()S
+            modelBuilder.Entity<Answer>()
             .HasMany(a => (List<IReaction>)a.Reactions) // Cast Reactions to List<Reaction>
             .WithOne()
             .HasForeignKey("AnswerId") // Use a non-existing property name to represent foreign key
