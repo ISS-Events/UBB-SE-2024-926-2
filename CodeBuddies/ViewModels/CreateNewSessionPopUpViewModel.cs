@@ -5,7 +5,6 @@ using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Resources.Data;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
-using static CodeBuddies.Models.Validators.ValidationForNewSession;
 
 namespace CodeBuddies.ViewModels
 {

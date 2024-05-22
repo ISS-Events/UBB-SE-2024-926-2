@@ -54,7 +54,7 @@ namespace CodeBuddies.Services
         public List<Buddy> FilterBuddies(string searchText)
         {
             List<Buddy> filteredBuddies = new ();
-            foreach (var buddy in BuddyRepository.GetAllBuddies())
+            foreach (Buddy buddy in BuddyRepository.GetAllBuddies())
             {
                 if (buddy.BuddyName.ToLower().Contains(searchText.ToLower()))
                 {
