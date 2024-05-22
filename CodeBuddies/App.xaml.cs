@@ -25,7 +25,7 @@ namespace CodeBuddies
                 .Build();
         }
 
-        private async void OnStartup(object sender, StartupEventArgs e)
+        private async void InitialiseServicesAndShowMainPage(object sender, StartupEventArgs e)
         {
             await host.StartAsync();
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
