@@ -10,11 +10,11 @@ namespace CodeBuddies.Models.Entities
         string Content { get; set; }
         DateTime DatePosted { get; set; }
         DateTime DateOfLastEdit { get; set; }
-        List<IReaction> Reactions { get; set; }
+        List<Reaction> Reactions { get; set; }
         #endregion
         #region Methods
-        int Score() => CollectionSummerFactory<IReaction>.GetFromMapping((IReaction ireaction) => ireaction.Value).ApplyTo(Reactions);
-        void AddReaction(IReaction reaction) => Reactions.Add(reaction);
+        int Score() => CollectionSummerFactory<Reaction>.GetFromMapping((Reaction reaction) => reaction.Value).ApplyTo(Reactions);
+        void AddReaction(Reaction reaction) => Reactions.Add(reaction);
         #endregion
     }
 }

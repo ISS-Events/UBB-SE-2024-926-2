@@ -6,7 +6,8 @@
         public bool IsAccepted { get; set; }
         #endregion
         #region Constructors
-        public InviteNotification(long notificationId, DateTime timeStamp, string type, string status, string description, long senderId, long receiverId, long sessionId, bool isAccepted) : base(notificationId, timeStamp, type, status, description, senderId, receiverId, sessionId)
+        public InviteNotification(long notificationId, DateTime timeStamp, string type, string status, string description, long senderId, long receiverId, long sessionId, bool isAccepted)
+            : base(notificationId, timeStamp, type, status, description, senderId, receiverId, sessionId)
         {
             IsAccepted = isAccepted;
         }
@@ -14,16 +15,6 @@
         public InviteNotification() : base()
         {
             IsAccepted = false;
-        }
-        #endregion
-        #region Methods
-
-        /// <summary>
-        /// Mark the notification as declined/accepted
-        /// </summary>
-        protected override void MarkNotification()
-        {
-            // mark as declined/accepted
         }
         #endregion
     }

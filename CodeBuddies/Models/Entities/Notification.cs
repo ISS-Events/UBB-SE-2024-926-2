@@ -40,8 +40,5 @@ namespace CodeBuddies.Models.Entities
             SessionId = IDGenerator.Default();
         }
         #endregion
-        #region Methods
-        protected abstract void MarkNotification();
-        #endregion
     }
 }

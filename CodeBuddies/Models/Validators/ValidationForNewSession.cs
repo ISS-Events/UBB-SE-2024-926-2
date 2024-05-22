@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static CodeBuddies.Resources.Data.Constants;
+﻿using static CodeBuddies.Resources.Data.Constants;
 
 namespace CodeBuddies.Models.Validators
 {
@@ -19,9 +14,7 @@ namespace CodeBuddies.Models.Validators
 
         public void ValidateMaxNumberOfBuddies(string maxNumberOfBuddiesText)
         {
-            int maxNumberOfBuddies;
-
-            if (!int.TryParse(maxNumberOfBuddiesText, out maxNumberOfBuddies))
+            if (!int.TryParse(maxNumberOfBuddiesText, out int maxNumberOfBuddies))
             {
                 throw new ArgumentException("Maximum number of buddies must be a valid integer.");
             }
@@ -31,20 +24,10 @@ namespace CodeBuddies.Models.Validators
             }
         }
 
-        public void ValidateBuddyId(long buddyId)
-        {
-            if (buddyId < 0)
-            {
-                throw new ArgumentOutOfRangeException("Buddy ID must be a non-negative integer.");
-            }
-        }
+        public void ValidateBuddyId(long buddyId) =>
+            ArgumentOutOfRangeException.ThrowIfNegative(buddyId);
 
-        public void ValidateSessionId(long sessionId)
-        {
-            if (sessionId < 0)
-            {
-                throw new ArgumentOutOfRangeException("Session ID must be a non-negative integer.");
-            }
-        }
+        public void ValidateSessionId(long sessionId) =>
+            ArgumentOutOfRangeException.ThrowIfNegative(sessionId);
     }
 }

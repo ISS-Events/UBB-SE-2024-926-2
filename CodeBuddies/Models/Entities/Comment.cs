@@ -16,7 +16,7 @@ namespace CodeBuddies.Models.Entities
         public DateTime DatePosted { get; set; }
 
         public DateTime DateOfLastEdit { get; set; }
-        public List<IReaction> Reactions { get; set; }
+        public List<Reaction> Reactions { get; set; }
         #endregion
         #region Constructor
         public Comment()
@@ -34,7 +34,7 @@ namespace CodeBuddies.Models.Entities
         {
             return $"Comment {{postID: {ID}, userID: {UserID}, datePosted: {DatePosted}, dateOfLastEdit: {DateOfLastEdit})"
                 + $"{Content}"
-                + $"reactions: {CollectionStringifier<IReaction>.ApplyTo(Reactions)}}}";
+                + $"reactions: {CollectionStringifier<Reaction>.ApplyTo(Reactions)}}}";
         }
         #endregion
     }

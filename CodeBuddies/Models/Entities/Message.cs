@@ -1,4 +1,4 @@
-﻿using CodeBuddies.Models.Entities.Interfaces;
+using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Utils;
 
 namespace CodeBuddies.Models.Entities

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Utils;
 using CodeBuddies.Utils.StreamProcessors;
 
@@ -10,10 +9,9 @@ namespace CodeBuddies.Models.Entities
         #region Properties
         public long ID { get; set; }
             public string Name { get; set; }
-            public List<INotification> NotificationList { get; set; }
-            public List<ICategory> CategoriesModeratedList { get; set; }
-            public List<IBadge> BadgeList { get; set; }
-            public Image? ProfilePicture { get; set; }
+            public List<Notification> NotificationList { get; set; }
+            public List<Category> CategoriesModeratedList { get; set; }
+            public List<Badge> BadgeList { get; set; }
         #endregion
         #region Constructor
         public User()
@@ -27,11 +25,11 @@ namespace CodeBuddies.Models.Entities
         #endregion
         #region Methods
         private string ToStringNotificationList()
-            => CollectionStringifier<INotification>.ApplyTo(NotificationList);
+            => CollectionStringifier<Notification>.ApplyTo(NotificationList);
         private string ToStringCategoryList()
-            => CollectionStringifier<ICategory>.ApplyTo(CategoriesModeratedList);
+            => CollectionStringifier<Category>.ApplyTo(CategoriesModeratedList);
         private string ToStringBadgeList()
-            => CollectionStringifier<IBadge>.ApplyTo(BadgeList);
+            => CollectionStringifier<Badge>.ApplyTo(BadgeList);
         public override string ToString()
             => $"User(id: {ID}, name: {Name}) "
             + $"notifications: {ToStringNotificationList()}"

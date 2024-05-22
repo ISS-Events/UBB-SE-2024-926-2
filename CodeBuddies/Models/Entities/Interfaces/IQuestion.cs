@@ -5,8 +5,8 @@ namespace CodeBuddies.Models.Entities
     public interface IQuestion : IPost
     {
         #region Properties
-        ICategory? Category { get; set; }
-        List<ITag> Tags { get; set; }
+        Category? Category { get; set; }
+        List<Tag> Tags { get; set; }
         string? Title { get; set; }
         #endregion
     }
