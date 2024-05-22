@@ -63,7 +63,7 @@ namespace CodeBuddies.Services
         {
             if (category == null)
             {
-                return new ();
+                return new();
             }
             bool QuestionIsOfCategory(Question question) => question.Category?.Name == category.Name;
             return StreamProcessor<Question, Question>.FilterCollection(repository.GetAllQuestions(), QuestionIsOfCategory).ToList();
@@ -89,10 +89,10 @@ namespace CodeBuddies.Services
 
         public List<Question> GetQuestionsSortedByScoreAscending()
         {
-            Dictionary<Question, int> questionToReactionValueMapping = new ();
+            Dictionary<Question, int> questionToReactionValueMapping = new();
 
             List<Question> listOfQuestions = currentQuestions;
-            CollectionSummer<Reaction> reactionValueSummer = new ((Reaction reaction) => reaction.Value);
+            CollectionSummer<Reaction> reactionValueSummer = new((Reaction reaction) => reaction.Value);
             void AddMappingForQuestion(Question question) =>
                 questionToReactionValueMapping[question] = GetReactionScore(repository.GetReactionsOfPostByPostID(question.ID).ToList());
 
@@ -114,7 +114,7 @@ namespace CodeBuddies.Services
         private static int GetReactionScore(List<Reaction> voteList)
         {
             static int GetReactionValue(Reaction reaction) => reaction.Value;
-            CollectionReducer<Reaction, int> summer = new (
+            CollectionReducer<Reaction, int> summer = new(
                 mapper: GetReactionValue,
                 folder: Aggregator.Addition,
                 defaultResult: 0);
@@ -123,7 +123,7 @@ namespace CodeBuddies.Services
 
         public List<Question> SortQuestionsByNumberOfAnswersAscending()
         {
-            Dictionary<Question, int> questionToIAnswerCountMapping = new ();
+            Dictionary<Question, int> questionToIAnswerCountMapping = new();
             void ProcessQuestion(Question question)
                 => questionToIAnswerCountMapping[question]
                 = StreamProcessor<IPost, IPost>.FilterCollection(repository.GetRepliesOfPost(question.ID), Filters.IPostIsAnswer).Count();
@@ -141,7 +141,7 @@ namespace CodeBuddies.Services
 
         public List<Question> SortQuestionsByDateAscending()
         {
-            Dictionary<Question, DateTime> iQuestionToDatePostedMapping = new ();
+            Dictionary<Question, DateTime> iQuestionToDatePostedMapping = new();
             void ProcessQuestion(Question question) => iQuestionToDatePostedMapping[question] = question.DatePosted;
             currentQuestions.ForEach(ProcessQuestion);
             Dictionary<Question, DateTime> sortedMap = iQuestionToDatePostedMapping.OrderBy(keyValuePair => keyValuePair.Value).ToDictionary();
@@ -199,7 +199,7 @@ namespace CodeBuddies.Services
         public int FilterQuestionsAnsweredThisMonth()
         {
             DateTime currentDate = DateTime.Now;
-            DateTime firstDayOfMonth = new (currentDate.Year, currentDate.Month, 1);
+            DateTime firstDayOfMonth = new(currentDate.Year, currentDate.Month, 1);
             DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             bool QuestionIsPostedWithinLastCalendarMonth(IQuestion question) => question.DatePosted >= firstDayOfMonth && question.DatePosted <= lastDayOfMonth;
             return GetAllQuestions()
@@ -214,12 +214,17 @@ namespace CodeBuddies.Services
             const int FIRST_DAY_OF_MONTH = 1;
             const int LAST_DAY_OF_DECEMBER = 31;
             DateTime currentDate = DateTime.Now;
-            DateTime firstDayOfLastYear = new (currentDate.Year - 1, JANUARY, FIRST_DAY_OF_MONTH);
-            DateTime lastDayOfLastYear = new (currentDate.Year - 1, DECEMBER, LAST_DAY_OF_DECEMBER);
+            DateTime firstDayOfLastYear = new(currentDate.Year - 1, JANUARY, FIRST_DAY_OF_MONTH);
+            DateTime lastDayOfLastYear = new(currentDate.Year - 1, DECEMBER, LAST_DAY_OF_DECEMBER);
             bool QuestionIsPostedWithinPreviousCalendarYear(Question question) => question.DatePosted >= firstDayOfLastYear && question.DatePosted <= lastDayOfLastYear;
             return GetAllQuestions()
                 .Where(QuestionIsPostedWithinPreviousCalendarYear)
                 .Count();
+        }
+
+        public object FilterQuestionsByLast7Days()
+        {
+            throw new NotImplementedException();
         }
     }
 }
