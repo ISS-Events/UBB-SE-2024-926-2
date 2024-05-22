@@ -1,4 +1,7 @@
 ﻿using CodeBuddies.Models.Entities;
+using CodeBuddies.Repositories.Interfaces;
+using CodeBuddies.Services.EntityBuilderServices;
+using CodeBuddies.Services.Interfaces;
 using CodeBuddies.Utils;
 using CodeBuddies.Utils.Functionals;
 using CodeBuddies.Utils.StreamProcessors;
@@ -7,10 +10,10 @@ namespace CodeBuddies.Services
 {
     internal class QuestionFeedService : IQuestionFeedService
     {
-        private readonly IRepository repository;
+        private readonly IQuestionFeedRepository repository;
 
         private readonly List<Question> currentQuestions;
-        public QuestionFeedService(IRepository repository)
+        public QuestionFeedService(IQuestionFeedRepository repository)
         {
             this.repository = repository;
             currentQuestions = GetAllQuestions();
@@ -62,14 +65,13 @@ namespace CodeBuddies.Services
             {
                 return new ();
             }
-            bool QuestionIsOfCategory(Question iquestion) => iquestion.Category?.Name == category.Name;
+            bool QuestionIsOfCategory(Question question) => question.Category?.Name == category.Name;
             return StreamProcessor<Question, Question>.FilterCollection(repository.GetAllQuestions(), QuestionIsOfCategory).ToList();
         }
 
         public List<Question> GetQuestionsWithAtLeastOneAnswer()
         {
-            static bool IsIAnswer(IPost ipost) => ipost is Answer;
-            bool QuestionHasAtLeastOneAnswer(Question question) => repository.GetRepliesOfPost(question.ID).Any(IsIAnswer);
+            bool QuestionHasAtLeastOneAnswer(Question question) => repository.GetRepliesOfPost(question.ID).Any(Filters.IPostIsAnswer);
             List<Question> filteredQuestions = repository.GetAllQuestions().Where(QuestionHasAtLeastOneAnswer).ToList();
             return filteredQuestions;
         }
@@ -77,10 +79,10 @@ namespace CodeBuddies.Services
         public List<Question> FindQuestionsByPartialStringInAnyField(string textToBeSearchedBy)
         {
             bool PartialStringMatches(string str) => str.Contains(textToBeSearchedBy, StringComparison.CurrentCultureIgnoreCase);
-            bool TagNameMatches(ITag itag) => PartialStringMatches(itag.Name);
+            bool TagNameMatches(Tag tag) => PartialStringMatches(tag.Name);
             bool AnyTagPartialMatches(Question question) => question.Tags.Where(TagNameMatches).Any();
-            bool AnyKeywordInTitleMatched(Question question) => question.Title?.Split(" ").Where(PartialStringMatches).Any() ?? false;
-            bool MasterFilterCondition(Question question) => AnyTagPartialMatches(question) || AnyKeywordInTitleMatched(question);
+            bool AnyKeywordInTitleMatches(Question question) => question.Title?.Split(" ").Where(PartialStringMatches).Any() ?? false;
+            bool MasterFilterCondition(Question question) => AnyTagPartialMatches(question) || AnyKeywordInTitleMatches(question);
 
             return StreamProcessor<Question, Question>.FilterCollection(repository.GetAllQuestions(), MasterFilterCondition).ToList();
         }
@@ -114,7 +116,7 @@ namespace CodeBuddies.Services
             static int GetReactionValue(Reaction reaction) => reaction.Value;
             CollectionReducer<Reaction, int> summer = new (
                 mapper: GetReactionValue,
-                folder: Aggregators.Addition,
+                folder: Aggregator.Addition,
                 defaultResult: 0);
             return summer.MapThenFold(voteList);
         }
@@ -124,7 +126,7 @@ namespace CodeBuddies.Services
             Dictionary<Question, int> questionToIAnswerCountMapping = new ();
             void ProcessQuestion(Question question)
                 => questionToIAnswerCountMapping[question]
-                = StreamProcessor<IPost, IPost>.FilterCollection(repository.GetRepliesOfPost(question.ID), Filters.IPostIsIAnswer).Count();
+                = StreamProcessor<IPost, IPost>.FilterCollection(repository.GetRepliesOfPost(question.ID), Filters.IPostIsAnswer).Count();
             currentQuestions.ForEach(ProcessQuestion);
             Dictionary<Question, int> sortedMapping = questionToIAnswerCountMapping.OrderBy(x => x.Value).ToDictionary();
             return sortedMapping.Keys.ToList();
@@ -153,35 +155,20 @@ namespace CodeBuddies.Services
             return questions;
         }
 
-        public List<Category> GetAllCategories()
-        {
-            return repository.GetAllCategories().ToList();
-        }
+        public List<Category> GetAllCategories() => repository.GetAllCategories().ToList();
 
-        public List<Question> GetCurrentQuestions()
-        {
-            return currentQuestions;
-        }
+        public List<Question> GetCurrentQuestions() => currentQuestions;
 
-        public List<Answer> GetAnswersOfUser(long userId)
-        {
-            return repository.GetAnswersOfUser(userId).ToList();
-        }
+        public List<Answer> GetAnswersOfUser(long userId) => repository.GetAnswersOfUser(userId).ToList();
 
         public List<Question> GetQuestionsOfUser(long userId)
         {
             return repository.GetQuestionsOfUser(userId).ToList();
         }
 
-        public List<Comment> GetCommentsOfUser(long userId)
-        {
-            return repository.GetCommentsOfUser(userId).ToList();
-        }
+        public List<Comment> GetCommentsOfUser(long userId) => repository.GetCommentsOfUser(userId).ToList();
 
-        public List<Tag> GetTagsOfQuestion(long questionId)
-        {
-            return repository.GetTagsOfQuestion(questionId).ToList();
-        }
+        public List<Tag> GetTagsOfQuestion(long questionId) => repository.GetTagsOfQuestion(questionId).ToList();
 
         public void AddQuestion(string title, string content, Category category)
         {

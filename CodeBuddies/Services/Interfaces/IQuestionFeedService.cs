@@ -1,6 +1,6 @@
 ﻿using CodeBuddies.Models.Entities;
 
-namespace CodeBuddies.Services
+namespace CodeBuddies.Services.Interfaces
 {
     public interface IQuestionFeedService
     {

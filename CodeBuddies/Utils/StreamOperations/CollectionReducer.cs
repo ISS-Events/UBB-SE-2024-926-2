@@ -1,6 +1,8 @@
 ﻿namespace CodeBuddies.Utils.StreamProcessors
 {
-    internal class CollectionReducer<InputType, OutputType>(Func<InputType, OutputType> mapper, Func<OutputType, OutputType, OutputType> folder, OutputType defaultResult)
+    internal class CollectionReducer<InputType, OutputType>(Func<InputType, OutputType> mapper,
+                                                            Func<OutputType, OutputType, OutputType> folder,
+                                                            OutputType defaultResult)
     {
         private readonly Func<InputType, OutputType> mapper = mapper;
         private readonly Func<OutputType, OutputType, OutputType> twoByTwoFolder = folder;

@@ -16,15 +16,5 @@
         long OwnerId { get; set; }
         TextEditor TextEditor { get; set; }
         #endregion
-        #region Methods
-        void AddBuddy(long buddyId);
-        void AddCodeContribution(int buddyId, DateTime date, int contributionValue);
-        void LeaveSession(long buddyId);
-        void PostCodeReviewSection(ICodeReviewSection codeReviewSection);
-        void PostCodeReviewSectionMessage(long codeReviewSectionId, IMessage message);
-        void PostMessage(IMessage message);
-        void RemoveBuddy(long buddyId);
-        void UploadFile(string filePath);
-        #endregion
     }
 }

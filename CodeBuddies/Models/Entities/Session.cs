@@ -20,7 +20,18 @@ namespace CodeBuddies.Models.Entities
         public DrawingBoard DrawingBoard { get; set; }
         #endregion
         #region Constructors
-        public Session(long sessionId, long ownerId, string name, DateTime creationDate, DateTime lastEditedDate, List<long> buddies, List<IMessage> messages, List<ICodeContribution> codeContributions, List<ICodeReviewSection> codeReviewSections, List<string> filePaths, ITextEditor textEditor, IDrawingBoard drawingBoard)
+        public Session(long sessionId,
+                       long ownerId,
+                       string name,
+                       DateTime creationDate,
+                       DateTime lastEditedDate,
+                       List<long> buddies,
+                       List<Message> messages,
+                       List<CodeContribution> codeContributions,
+                       List<CodeReviewSection> codeReviewSections,
+                       List<string> filePaths,
+                       TextEditor textEditor,
+                       DrawingBoard drawingBoard)
         {
             Id = sessionId;
             OwnerId = ownerId;
@@ -42,82 +53,14 @@ namespace CodeBuddies.Models.Entities
             Name = string.Empty;
             CreationDate = DateTime.Now;
             LastEditDate = DateTime.Now;
-            Buddies = new List<long> { };
-            Messages = new List<IMessage> { };
-            CodeContributions = new List<ICodeContribution> { };
-            CodeReviewSections = new List<ICodeReviewSection> { };
-            FilePaths = new List<string> { };
-            TextEditor = new TextEditor();
-            DrawingBoard = new DrawingBoard();
+            Buddies = new ();
+            Messages = new ();
+            CodeContributions = new ();
+            CodeReviewSections = new ();
+            FilePaths = new ();
+            TextEditor = new ();
+            DrawingBoard = new ();
         }
-        #endregion
-        #region Methods
-
-        /// <summary>
-        /// Add buddy to the session
-        /// </summary>
-        /// <param name="buddyId"></param>
-        public void AddBuddy(long buddyId)
-        {
-            // Add buddy to the session
-            return;
-        }
-
-        /// <summary>
-        /// Remove buddy from the session
-        /// </summary>
-        /// <param name="buddyId"></param>
-        public void RemoveBuddy(long buddyId)
-        {
-            // Remove buddy from the session
-            return;
-        }
-
-        /// <summary>
-        /// Leave the session
-        /// </summary>
-        /// <param name="buddyId"></param>
-        public void LeaveSession(long buddyId)
-        {
-            // Leave the session
-            return;
-        }
-
-        /// <summary>
-        /// Upload file to the session
-        /// </summary>
-        /// <param name="filePath"></param>
-        public void UploadFile(string filePath)
-        {
-            FilePaths.Add(filePath);
-        }
-
-        /// <summary>
-        /// Add code contribution
-        /// </summary>
-        /// <param name="buddyId"></param>
-        /// <param name="date"></param>
-        /// <param name="contributionValue"></param>
-        public void AddCodeContribution(int buddyId, DateTime date, int contributionValue)
-        {
-            // Add code contribution
-            return;
-        }
-
-        /// <summary>
-        /// Post message to the session
-        /// </summary>
-        /// <param name="message"></param>
-        public void PostMessage(Message message)
-        {
-            Messages.Add(message);
-        }
-
-        public void PostCodeReviewSection(CodeReviewSection codeReviewSection)
-        {
-            CodeReviewSections.Add(codeReviewSection);
-        }
-
         #endregion
     }
 }
