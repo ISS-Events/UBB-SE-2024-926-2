@@ -11,15 +11,5 @@
         {
         }
         #endregion
-        #region Methods
-
-        /// <summary>
-        /// Mark the notification as read
-        /// </summary>
-        protected override void MarkNotification()
-        {
-            // mark as read
-        }
-        #endregion
     }
 }

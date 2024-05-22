@@ -5,7 +5,7 @@ namespace CodeBuddies.Models.Entities
 {
     public class Message : IMessage
     {
-        #region Prperties
+        #region Properties
         public long MessageId { get; set; }
         public DateTime TimeStamp { get; set; }
         public string Content { get; set; }

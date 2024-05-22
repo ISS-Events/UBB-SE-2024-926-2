@@ -8,7 +8,7 @@ namespace CodeBuddies.Models.Entities
         #region Properties
         public long Id { get; set; }
         public long OwnerId { get; set; }
-        public List<IMessage> Messages { get; set; }
+        public List<Message> Messages { get; set; }
         public string CodeSection { get; set; }
         public bool IsClosed { get; set; }
         #endregion
@@ -17,11 +17,11 @@ namespace CodeBuddies.Models.Entities
         {
             Id = IDGenerator.Default();
             OwnerId = IDGenerator.Default();
-            Messages = new List<IMessage>();
+            Messages = new List<Message>();
             CodeSection = string.Empty;
             IsClosed = false;
         }
-        public CodeReviewSection(long codeReviewSectionId, long ownerId, List<IMessage> message, string codeSection, bool isClosed)
+        public CodeReviewSection(long codeReviewSectionId, long ownerId, List<Message> message, string codeSection, bool isClosed)
         {
             Id = codeReviewSectionId;
             OwnerId = ownerId;

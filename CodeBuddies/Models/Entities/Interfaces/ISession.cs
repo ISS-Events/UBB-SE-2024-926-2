@@ -4,17 +4,17 @@
     {
         #region Properties
         List<long> Buddies { get; set; }
-        List<ICodeContribution> CodeContributions { get; set; }
-        List<ICodeReviewSection> CodeReviewSections { get; set; }
+        List<CodeContribution> CodeContributions { get; set; }
+        List<CodeReviewSection> CodeReviewSections { get; set; }
         DateTime CreationDate { get; set; }
-        IDrawingBoard DrawingBoard { get; set; }
+        DrawingBoard DrawingBoard { get; set; }
         List<string> FilePaths { get; set; }
         long Id { get; set; }
         DateTime LastEditDate { get; set; }
-        List<IMessage> Messages { get; set; }
+        List<Message> Messages { get; set; }
         string Name { get; set; }
         long OwnerId { get; set; }
-        ITextEditor TextEditor { get; set; }
+        TextEditor TextEditor { get; set; }
         #endregion
         #region Methods
         void AddBuddy(long buddyId);

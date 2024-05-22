@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Utils;
 
 namespace CodeBuddies.Models.Entities
@@ -10,7 +9,6 @@ namespace CodeBuddies.Models.Entities
         public long ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Image? Image { get; set; }
         #endregion
         #region Constructor
         public Badge()
@@ -18,13 +16,12 @@ namespace CodeBuddies.Models.Entities
             ID = IDGenerator.Default();
             Name = "New Badge";
             Description = "None provided";
-            Image = null;
         }
         #endregion
         #region Methods
         public override string ToString()
         {
-            return $"Badge(id: {ID}, badgeName: {Name}, image: {Image})"
+            return $"Badge(id: {ID}, badgeName: {Name})"
                 + $"badgeDescription: {Description}";
         }
         #endregion

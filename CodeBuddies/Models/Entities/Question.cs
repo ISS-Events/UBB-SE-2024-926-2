@@ -7,9 +7,9 @@ namespace CodeBuddies.Models.Entities
     {
         #region Properties
         public string? Title { get; set; }
-        public ICategory? Category { get; set; }
+        public Category? Category { get; set; }
         private readonly IPost post;
-        public List<ITag> Tags { get; set; }
+        public List<Tag> Tags { get; set; }
         public long ID
         {
             get => post.ID; set { post.ID = value; }
@@ -31,7 +31,7 @@ namespace CodeBuddies.Models.Entities
         {
             get => post.DateOfLastEdit; set { post.DateOfLastEdit = value; }
         }
-        public List<IReaction> Reactions
+        public List<Reaction> Reactions
         {
             get => post.Reactions; set { post.Reactions = value; }
         }
@@ -48,8 +48,8 @@ namespace CodeBuddies.Models.Entities
         {
             return $"Question(postID: {ID}, userID: {UserID}, title:{Title} , category: {Category})"
                 + $"{Content}"
-                + $"reactions: {CollectionStringifier<IReaction>.ApplyTo(Reactions)}"
-                + $"tags: {CollectionStringifier<ITag>.ApplyTo(Tags)}";
+                + $"reactions: {CollectionStringifier<Reaction>.ApplyTo(Reactions)}"
+                + $"tags: {CollectionStringifier<Tag>.ApplyTo(Tags)}";
         }
         #endregion
     }

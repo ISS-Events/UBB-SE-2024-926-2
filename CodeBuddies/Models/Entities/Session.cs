@@ -12,12 +12,12 @@ namespace CodeBuddies.Models.Entities
         public DateTime CreationDate { get; set; }
         public DateTime LastEditDate { get; set; }
         public List<long> Buddies { get; set; }
-        public List<IMessage> Messages { get; set; }
-        public List<ICodeContribution> CodeContributions { get; set; }
-        public List<ICodeReviewSection> CodeReviewSections { get; set; }
+        public List<Message> Messages { get; set; }
+        public List<CodeContribution> CodeContributions { get; set; }
+        public List<CodeReviewSection> CodeReviewSections { get; set; }
         public List<string> FilePaths { get; set; }
-        public ITextEditor TextEditor { get; set; }
-        public IDrawingBoard DrawingBoard { get; set; }
+        public TextEditor TextEditor { get; set; }
+        public DrawingBoard DrawingBoard { get; set; }
         #endregion
         #region Constructors
         public Session(long sessionId, long ownerId, string name, DateTime creationDate, DateTime lastEditedDate, List<long> buddies, List<IMessage> messages, List<ICodeContribution> codeContributions, List<ICodeReviewSection> codeReviewSections, List<string> filePaths, ITextEditor textEditor, IDrawingBoard drawingBoard)
@@ -108,30 +108,16 @@ namespace CodeBuddies.Models.Entities
         /// Post message to the session
         /// </summary>
         /// <param name="message"></param>
-        public void PostMessage(IMessage message)
+        public void PostMessage(Message message)
         {
             Messages.Add(message);
         }
 
-        /// <summary>
-        /// Post code review section
-        /// </summary>
-        /// <param name="codeReviewSection"></param>
-        public void PostCodeReviewSection(ICodeReviewSection codeReviewSection)
+        public void PostCodeReviewSection(CodeReviewSection codeReviewSection)
         {
             CodeReviewSections.Add(codeReviewSection);
         }
 
-        /// <summary>
-        /// Post message to code review section
-        /// </summary>
-        /// <param name="codeReviewSectionId"></param>
-        /// <param name="message"></param>
-        public void PostCodeReviewSectionMessage(long codeReviewSectionId, IMessage message)
-        {
-            // Post message to code review section
-            return;
-        }
         #endregion
     }
 }

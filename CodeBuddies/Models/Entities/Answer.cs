@@ -16,7 +16,7 @@ namespace CodeBuddies.Models.Entities
         public DateTime DatePosted { get; set; }
 
         public DateTime DateOfLastEdit { get; set; }
-        public List<IReaction> Reactions { get; set; }
+        public List<Reaction> Reactions { get; set; }
         #endregion
         #region Constructor
         public Answer()
@@ -31,7 +31,7 @@ namespace CodeBuddies.Models.Entities
         {
             return $"Answer {{id: {ID}, userID: {UserID}, datePosted: {DatePosted}, dateOfLastEdit: {DateOfLastEdit}) \n"
                 + $"{Content} \n"
-                + $"reactions: {CollectionStringifier<IReaction>.ApplyTo(Reactions)}}} \n";
+                + $"reactions: {CollectionStringifier<Reaction>.ApplyTo(Reactions)}}} \n";
         }
         #endregion
     }
