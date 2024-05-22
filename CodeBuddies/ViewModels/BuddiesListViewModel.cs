@@ -1,25 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.MVVM;
 using CodeBuddies.Repositories;
-using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
 using CodeBuddies.Views;
-using CodeBuddies.Views.Windows;
-using SessionsModalWindow = CodeBuddies.Views.Windows.SessionsModalWindow;
 
 namespace CodeBuddies.ViewModels
 {
     public class BuddiesListViewModel : ViewModelBase
     {
         #region Fields
-        private ObservableCollection<IBuddy> buddies;
+        private ObservableCollection<Buddy> buddies;
         private IBuddyService service;
         private Buddy selectedBuddy;
         private string searchText;
@@ -27,7 +22,7 @@ namespace CodeBuddies.ViewModels
         #endregion
 
         #region Properties
-        public ObservableCollection<IBuddy> Buddies
+        public ObservableCollection<Buddy> Buddies
         {
             get
             {
@@ -70,7 +65,7 @@ namespace CodeBuddies.ViewModels
         #endregion
 
         #region Lambda Commands
-        public RelayCommand<IBuddy> OpenModalCommand => new RelayCommand<IBuddy>(_ => OpenModal());
+        public RelayCommand<Buddy> OpenModalCommand => new RelayCommand<Buddy>(_ => OpenModal());
         #endregion
 
         public BuddiesListViewModel()
@@ -90,14 +85,14 @@ namespace CodeBuddies.ViewModels
             }
             else
             {
-                Buddies = new ObservableCollection<IBuddy>(service.FilterBuddies(SearchText));
+                Buddies = new ObservableCollection<Buddy>(service.FilterBuddies(SearchText));
             }
         }
 
         private void LoadBuddies()
         {
-            List<IBuddy> buddies = service.GetAllBuddies();
-            Buddies = new ObservableCollection<IBuddy>(buddies);
+            List<Buddy> buddies = service.GetAllBuddies();
+            Buddies = new ObservableCollection<Buddy>(buddies);
         }
 
         private void OpenModal()

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CodeBuddies.Models.Entities;
 using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Repositories;
 using CodeBuddies.Repositories.Interfaces;
@@ -15,8 +16,8 @@ namespace CodeBuddies.Services
     {
         #region Fields
         private IBuddyRepository budyRepository;
-        private List<IBuddy> activeBuddies;
-        private List<IBuddy> inactiveBuddies;
+        private List<Buddy> activeBuddies;
+        private List<Buddy> inactiveBuddies;
         #endregion
 
         #region Properties
@@ -25,12 +26,12 @@ namespace CodeBuddies.Services
             get { return budyRepository; }
             set { budyRepository = value; }
         }
-        public List<IBuddy> ActiveBuddies
+        public List<Buddy> ActiveBuddies
         {
             get { return activeBuddies; }
             set { activeBuddies = value; }
         }
-        public List<IBuddy> InactiveBuddies
+        public List<Buddy> InactiveBuddies
         {
             get { return inactiveBuddies; }
             set { inactiveBuddies = value; }
@@ -45,14 +46,14 @@ namespace CodeBuddies.Services
         }
 
         #region Getters
-        public List<IBuddy> GetAllBuddies()
+        public List<Buddy> GetAllBuddies()
         {
             return BuddyRepository.GetAllBuddies();
         }
 
-        public List<IBuddy> FilterBuddies(string searchText)
+        public List<Buddy> FilterBuddies(string searchText)
         {
-            List<IBuddy> filteredBuddies = new List<IBuddy>();
+            List<Buddy> filteredBuddies = new ();
             foreach (var buddy in BuddyRepository.GetAllBuddies())
             {
                 if (buddy.BuddyName.ToLower().Contains(searchText.ToLower()))
@@ -72,9 +73,9 @@ namespace CodeBuddies.Services
         }
         #endregion
 
-        public IBuddy ChangeBuddyStatus(IBuddy buddy)
+        public Buddy ChangeBuddyStatus(Buddy buddy)
         {
-            IBuddy changedBuddy = BuddyRepository.UpdateBuddyStatus(buddy);
+            Buddy changedBuddy = BuddyRepository.UpdateBuddyStatus(buddy);
             return changedBuddy;
         }
     }

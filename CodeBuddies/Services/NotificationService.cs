@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities;
 using CodeBuddies.Repositories;
-using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Resources.Data;
 using CodeBuddies.Services.Interfaces;
 
@@ -31,7 +25,7 @@ namespace CodeBuddies.Services
         }
 
         #region Getters
-        public List<INotification> GetAllNotificationsForCurrentBuddy()
+        public List<Notification> GetAllNotificationsForCurrentBuddy()
         {
             return notificationRepository.GetAllByBuddyId(Constants.CLIENT_BUDDY_ID);
         }
@@ -43,12 +37,12 @@ namespace CodeBuddies.Services
         #endregion
 
         #region Methods
-        public void RemoveNotification(INotification notification)
+        public void RemoveNotification(Notification notification)
         {
             notificationRepository.RemoveById(notification.Id);
         }
 
-        public void AddNotification(INotification notification)
+        public void AddNotification(Notification notification)
         {
             notificationRepository.Save(notification);
         }

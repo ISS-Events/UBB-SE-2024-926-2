@@ -1,15 +1,14 @@
 ﻿using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 
 namespace CodeBuddies.Repositories
 {
     public interface INotificationRepository
     {
-        List<INotification> GetAll();
-        List<INotification> GetAllByBuddyId(long buddyId);
+        List<Notification> GetAll();
+        List<Notification> GetAllByBuddyId(long buddyId);
         long GetFreeNotificationId();
         void RemoveById(long notificationId);
-        void Save(INotification notification);
+        void Save(Notification notification);
         void ClearDatabase();
     }
 }
