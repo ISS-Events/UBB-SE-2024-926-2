@@ -9,7 +9,7 @@
         Title="MainWindow" Height="800" Width="1200">
     <Grid Background="White">
         <Button Content="Drawing Board" HorizontalAlignment="Left" Margin="197,497,0,0" VerticalAlignment="Top" Height="91" Width="187" FontSize="25" RenderTransformOrigin="0.125,0.486" Click="DrawingBoard_Button_Click"/>
-        <Button Content="Forum" HorizontalAlignment="Left" Margin="816,497,0,0" VerticalAlignment="Top" Height="91" Width="148" FontSize="25" RenderTransformOrigin="0.319,0.522"/>
+        <Button Content="Forum" HorizontalAlignment="Left" Margin="816,497,0,0" VerticalAlignment="Top" Height="91" Width="148" FontSize="25" RenderTransformOrigin="0.319,0.522" Click="Forum_Button_Click"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,189,0,0" TextWrapping="Wrap" Text="Welcome" VerticalAlignment="Top" Height="61" Width="160" FontSize="35" RenderTransformOrigin="0.337,-0.369"/>
 
     </Grid>

@@ -8,7 +8,7 @@ using CodeBuddies.Utils.StreamProcessors;
 
 namespace CodeBuddies.Services
 {
-    internal class QuestionFeedService : IQuestionFeedService
+    public class QuestionFeedService : IQuestionFeedService
     {
         private readonly IQuestionFeedRepository repository;
 

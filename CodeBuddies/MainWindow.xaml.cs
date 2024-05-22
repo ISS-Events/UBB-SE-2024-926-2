@@ -22,5 +22,13 @@ namespace CodeBuddies
             navigationWindow.Show();
             this.Close();
         }
+
+        private void Forum_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationWindow navigationWindow = new NavigationWindow();
+            navigationWindow.Source = new System.Uri("Views/UserControls/ForumMenu.xaml", System.UriKind.Relative);
+            navigationWindow.Show();
+            this.Close();
+        }
     }
 }

@@ -7,22 +7,25 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CodeBuddies.Repositories;
+using CodeBuddies.Services;
 
 namespace CodeBuddies.Views.UserControls
 {
-    /// <summary>
-    /// Interaction logic for ForumMenu.xaml
-    /// </summary>
     public partial class ForumMenu : Page
     {
+        public QuestionFeedService QuestionFeedService;
         public ForumMenu()
         {
+            this.QuestionFeedService = new QuestionFeedService(new QuestionFeedRepository());
             InitializeComponent();
+            MainFrame.Navigate(new SearchQuestionPage(QuestionFeedService));
         }
     }
 }
