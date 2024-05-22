@@ -1,5 +1,4 @@
 ﻿using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 
 namespace CodeBuddies.Repositories
 {
