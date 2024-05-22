@@ -1,15 +1,18 @@
 ﻿using CodeBuddies.Models.Entities.Interfaces;
+using CodeBuddies.Utils;
 
 namespace CodeBuddies.Models.Entities
 {
     public class DrawingBoard : IDrawingBoard
     {
         #region Properties
+        public long Id { get; set; }
         public string FilePath { get; set; }
         #endregion
         #region Constructors
         public DrawingBoard()
         {
+            Id = IDGenerator.Default();
             FilePath = string.Empty;
         }
 

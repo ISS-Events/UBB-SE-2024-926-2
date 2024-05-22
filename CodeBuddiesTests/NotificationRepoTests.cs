@@ -29,7 +29,7 @@ namespace CodeBuddiesTests
             notificationRepository.Save(testedNotification);
             List<INotification> actualOutput = notificationRepository.GetAll();
             List<INotification> expectedOutput = new List<INotification> { testedNotification };
-            Assert.AreEqual(actualOutput[0].NotificationId, expectedOutput[0].NotificationId);
+            Assert.AreEqual(actualOutput[0].Id, expectedOutput[0].Id);
         }
 
 
@@ -49,7 +49,7 @@ namespace CodeBuddiesTests
             notificationRepository.Save(secondTestedNotification);
             List<INotification> actualOutput = notificationRepository.GetAllByBuddyId(2);
             List<INotification> expectedOutput = new List<INotification> { testedNotification };
-            Assert.AreEqual(actualOutput[0].NotificationId, expectedOutput[0].NotificationId);
+            Assert.AreEqual(actualOutput[0].Id, expectedOutput[0].Id);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace CodeBuddiesTests
             notificationRepository.RemoveById(1);
             List<INotification> actualOutput = notificationRepository.GetAll();
             List<INotification> expectedOutput = new List<INotification> { secondTestedNotification };
-            Assert.AreEqual(actualOutput[0].NotificationId, expectedOutput[0].NotificationId);
+            Assert.AreEqual(actualOutput[0].Id, expectedOutput[0].Id);
         }
 
         [Test]

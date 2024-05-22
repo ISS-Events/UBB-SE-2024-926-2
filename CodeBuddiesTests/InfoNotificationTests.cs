@@ -31,8 +31,8 @@ namespace CodeBuddiesTests
             long sessionId = 789;
 
             var mockInfoNotification = new Mock<INotification>();
-            mockInfoNotification.Setup(infoNotification => infoNotification.NotificationId).Returns(notificationId);
-            long actualNotificationId = mockInfoNotification.Object.NotificationId;
+            mockInfoNotification.Setup(infoNotification => infoNotification.Id).Returns(notificationId);
+            long actualNotificationId = mockInfoNotification.Object.Id;
             Assert.AreEqual(notificationId, actualNotificationId);
         }
 
