@@ -1,9 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.MVVM;
-using CodeBuddies.Repositories.Interfaces;
 
 namespace CodeBuddies.Repositories
 {
@@ -13,20 +11,20 @@ namespace CodeBuddies.Repositories
         {
         }
 
-        public List<INotification> GetAll()
+        public List<Notification> GetAll()
         {
-            List<INotification> notifications = new List<INotification>();
+            List<Notification> notifications = new ();
 
-            DataSet notificationDataSet = new DataSet();
+            DataSet notificationDataSet = new ();
             string selectAll = "SELECT * FROM Notifications";
-            SqlCommand selectAllNotifications = new SqlCommand(selectAll, sqlConnection);
+            SqlCommand selectAllNotifications = new (selectAll, sqlConnection);
             dataAdapter.SelectCommand = selectAllNotifications;
             notificationDataSet.Clear();
             dataAdapter.Fill(notificationDataSet, "Notifications");
 
             foreach (DataRow notificationRow in notificationDataSet.Tables["Notifications"].Rows)
             {
-                INotification currentNotification;
+                Notification currentNotification;
 
                 if (notificationRow["notification_type"].ToString() == "invite")
                 {
@@ -43,13 +41,13 @@ namespace CodeBuddies.Repositories
             return notifications;
         }
 
-        public List<INotification> GetAllByBuddyId(long buddyId)
+        public List<Notification> GetAllByBuddyId(long buddyId)
         {
-            List<INotification> notifications = new List<INotification>();
+            List<Notification> notifications = new ();
 
-            DataSet notificationDataSet = new DataSet();
+            DataSet notificationDataSet = new ();
             string selectAll = "SELECT * FROM Notifications WHERE receiver_id=@buddyId";
-            SqlCommand selectAllNotifications = new SqlCommand(selectAll, sqlConnection);
+            SqlCommand selectAllNotifications = new (selectAll, sqlConnection);
             selectAllNotifications.Parameters.AddWithValue("@buddyId", buddyId);
             dataAdapter.SelectCommand = selectAllNotifications;
             notificationDataSet.Clear();
@@ -57,7 +55,7 @@ namespace CodeBuddies.Repositories
 
             foreach (DataRow notificationRow in notificationDataSet.Tables["Notifications"].Rows)
             {
-                INotification currentNotification;
+                Notification currentNotification;
 
                 if (notificationRow["notification_type"].ToString() == "invite")
                 {
@@ -77,12 +75,10 @@ namespace CodeBuddies.Repositories
         public void RemoveById(long notificationId)
         {
             string deleteNotificationQuery = "DELETE FROM Notifications WHERE id = @notificationId";
-            using (SqlCommand deleteCommand = new SqlCommand(deleteNotificationQuery, sqlConnection))
-            {
-                deleteCommand.Parameters.AddWithValue("@notificationId", notificationId);
+            using SqlCommand deleteCommand = new (deleteNotificationQuery, sqlConnection);
+            deleteCommand.Parameters.AddWithValue("@notificationId", notificationId);
 
-                deleteCommand.ExecuteNonQuery();
-            }
+            deleteCommand.ExecuteNonQuery();
         }
 
         public long GetFreeNotificationId()
@@ -105,7 +101,7 @@ namespace CodeBuddies.Repositories
 
         public void ClearDatabase()
         {
-            List<string> tables = new List<string>
+            List<string> tables = new ()
             {
                 "BuddiesSessions", "MessagesCodeReviews", "MessagesSessions", "CodeReviewsSessions",
                 "Notifications", "Sessions", "Messages", "CodeReviews", "CodeContributions", "Buddies"
@@ -113,14 +109,12 @@ namespace CodeBuddies.Repositories
             foreach (string table in tables)
             {
                 string deleteNotificationQuery = $"DELETE FROM {table}";
-                using (SqlCommand deleteCommand = new SqlCommand(deleteNotificationQuery, sqlConnection))
-                {
-                    deleteCommand.ExecuteNonQuery();
-                }
+                using SqlCommand deleteCommand = new (deleteNotificationQuery, sqlConnection);
+                deleteCommand.ExecuteNonQuery();
             }
         }
 
-        public void Save(INotification notification)
+        public void Save(Notification notification)
         {
             // Define the SQL command to insert a new notification
             string saveQuery = @"

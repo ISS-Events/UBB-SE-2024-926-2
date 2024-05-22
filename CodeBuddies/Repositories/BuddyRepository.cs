@@ -1,10 +1,8 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Models.Exceptions;
 using CodeBuddies.MVVM;
-using CodeBuddies.Repositories.Interfaces;
 namespace CodeBuddies.Repositories
 {
     public class BuddyRepository : DBRepositoryBase, IBuddyRepository
@@ -13,9 +11,9 @@ namespace CodeBuddies.Repositories
         {
         }
 
-        public List<IBuddy> GetAllBuddies()
+        public List<Buddy> GetAllBuddies()
         {
-            List<IBuddy> buddies = new ();
+            List<Buddy> buddies = new ();
 
             DataSet buddyDataSet = new ();
             string selectAllBuddies = "SELECT * FROM Buddies";
@@ -24,7 +22,7 @@ namespace CodeBuddies.Repositories
             buddyDataSet.Clear();
             dataAdapter.Fill(buddyDataSet, "Buddies");
 
-            foreach (DataRow buddyRow in buddyDataSet.Tables["Buddies"].Rows)
+            foreach (DataRow buddyRow in buddyDataSet.Tables["Buddies"]?.Rows)
             {
                 SqlDataAdapter notificationsDataAdapter = new ();
 
@@ -36,7 +34,7 @@ namespace CodeBuddies.Repositories
                 notificationDataSet.Clear();
                 notificationsDataAdapter.Fill(notificationDataSet, "Notifications");
 
-                List<INotification> notifications = new ();
+                List<Notification> notifications = new ();
 
                 foreach (DataRow notificationRow in notificationDataSet.Tables["Notifications"].Rows)
                 {
@@ -54,24 +52,24 @@ namespace CodeBuddies.Repositories
                     notifications.Add(currentNotification);
                 }
 
-                IBuddy currentBudy = new Buddy((long)buddyRow["id"], buddyRow["buddy_name"].ToString(), buddyRow["profile_photo_url"].ToString(), buddyRow["buddy_status"].ToString(), notifications);
+                Buddy currentBudy = new ((long)buddyRow["id"], buddyRow["buddy_name"].ToString(), buddyRow["profile_photo_url"].ToString(), buddyRow["buddy_status"].ToString(), notifications);
                 buddies.Add(currentBudy);
             }
 
             return buddies;
         }
 
-        public List<IBuddy> GetActiveBuddies()
+        public List<Buddy> GetActiveBuddies()
         {
             return GetAllBuddies().Where(buddy => buddy.Status == "active").ToList();
         }
 
-        public List<IBuddy> GetInactiveBuddies()
+        public List<Buddy> GetInactiveBuddies()
         {
             return GetAllBuddies().Where(buddy => buddy.Status == "inactive").ToList();
         }
 
-        public IBuddy UpdateBuddyStatus(IBuddy buddy)
+        public Buddy UpdateBuddyStatus(Buddy buddy)
         {
             buddy.Status = buddy.Status == "active" ? "inactive" : "active";
             return buddy;
@@ -87,10 +85,8 @@ namespace CodeBuddies.Repositories
             foreach (string table in tables)
             {
                 string deleteNotificationQuery = $"DELETE FROM {table}";
-                using (SqlCommand deleteCommand = new (deleteNotificationQuery, sqlConnection))
-                {
-                    deleteCommand.ExecuteNonQuery();
-                }
+                using SqlCommand deleteCommand = new (deleteNotificationQuery, sqlConnection);
+                deleteCommand.ExecuteNonQuery();
             }
         }
 

@@ -1,6 +1,5 @@
-﻿using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities;
 using CodeBuddies.Repositories;
-using CodeBuddies.Repositories.Interfaces;
 
 namespace CodeBuddies.Services.Interfaces
 {
@@ -8,9 +7,9 @@ namespace CodeBuddies.Services.Interfaces
     {
         INotificationRepository NotificationRepository { get; set; }
 
-        void AddNotification(INotification notification);
-        List<INotification> GetAllNotificationsForCurrentBuddy();
+        void AddNotification(Notification notification);
+        List<Notification> GetAllNotificationsForCurrentBuddy();
         long GetFreeNotificationId();
-        void RemoveNotification(INotification notification);
+        void RemoveNotification(Notification notification);
     }
 }

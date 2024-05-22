@@ -48,13 +48,13 @@ namespace CodeBuddies.Data
             base.OnModelCreating(modelBuilder);
             // Configure entity filters and constraints here
             modelBuilder.Entity<Question>()
-                .HasOne<Category>(q => (Category)q.Category);
+                .HasOne(q => (q.Category));
             modelBuilder.Entity<Session>()
-                .HasOne<DrawingBoard>(s => (DrawingBoard)s.DrawingBoard)
+                .HasOne(s => s.DrawingBoard)
                 .WithOne()
                 .HasForeignKey<Session>(s => s.Id);
             modelBuilder.Entity<Session>()
-                .HasOne<TextEditor>(s => (TextEditor)s.TextEditor)
+                .HasOne(s => s.TextEditor)
                 .WithOne()
                 .HasForeignKey<Session>(s => s.Id);
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
@@ -69,7 +69,7 @@ namespace CodeBuddies.Data
                 }
             }
             modelBuilder.Entity<Answer>()
-            .HasMany(a => (List<IReaction>)a.Reactions) // Cast Reactions to List<Reaction>
+            .HasMany(a => a.Reactions) // Cast Reactions to List<Reaction>
             .WithOne()
             .HasForeignKey("AnswerId") // Use a non-existing property name to represent foreign key
             .IsRequired(false);

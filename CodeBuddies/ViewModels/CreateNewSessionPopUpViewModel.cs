@@ -11,7 +11,7 @@ namespace CodeBuddies.ViewModels
 {
     public class CreateNewSessionPopUpViewModel : ViewModelBase
     {
-        private ISessionService sessionService;
+        private readonly ISessionService sessionService;
 
         public CreateNewSessionPopUpViewModel()
         {
