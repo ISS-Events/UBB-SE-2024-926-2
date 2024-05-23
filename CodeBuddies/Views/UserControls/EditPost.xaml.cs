@@ -1,19 +1,9 @@
-﻿using CodeBuddies.Models.Entities;
-using CodeBuddies.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Forms.Design;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using CodeBuddies.Models.Entities;
+using CodeBuddies.Services;
+using CodeBuddies.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.Views.UserControls
 {
@@ -24,10 +14,11 @@ namespace CodeBuddies.Views.UserControls
     {
         private readonly IPost post;
         private readonly IQuestionFeedService iservice;
-        public EditPost(IQuestionFeedService service, IPost post)
+        public EditPost(IPost post)
         {
-            this.iservice = service;
             this.post = post;
+            iservice = ServiceLocator.ServiceProvider.GetService<IQuestionFeedService>()
+                ?? throw new Exception("No implementation");
             InitializeComponent();
         }
 
@@ -37,7 +28,7 @@ namespace CodeBuddies.Views.UserControls
             post.Content = text;
             post.DateOfLastEdit = DateTime.Now;
             // This is not fine leaving this here until someone fixes
-            TextPost newPost = new(post.UserID, text);
+            TextPost newPost = new (post.UserID, text);
             iservice.UpdatePost(post, newPost);
         }
 

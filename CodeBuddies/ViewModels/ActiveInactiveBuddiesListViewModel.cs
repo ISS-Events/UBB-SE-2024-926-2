@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using CodeBuddies.Models.Entities;
 using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.MVVM;
-using CodeBuddies.Repositories;
-using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
-using CodeBuddies.Views.UserControls;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.ViewModels
 {
     public class ActiveInactiveBuddiesListViewModel : ViewModelBase
     {
-        public ActiveInactiveBuddiesListViewModel(IBuddyService buddyService)
+        public ActiveInactiveBuddiesListViewModel()
         {
-            this.buddyService = buddyService;
-            active = new ObservableCollection<IBuddy>();
-            inactive = new ObservableCollection<IBuddy>();
-            allBuddies = new ObservableCollection<IBuddy>();
+            buddyService = ServiceLocator.ServiceProvider.GetService<IBuddyService>()
+                ?? throw new Exception("No implementation");
+            active = new ObservableCollection<IBuddy>(buddyService.ActiveBuddies);
+            inactive = new ObservableCollection<IBuddy>(buddyService.InactiveBuddies);
+            allBuddies = new ObservableCollection<IBuddy>(buddyService.GetAllBuddies());
         }
         #region Fields
         private IBuddyService buddyService;

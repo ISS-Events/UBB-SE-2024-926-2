@@ -9,10 +9,10 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class SessionsPanel : UserControl
     {
-        public SessionsPanel(ISessionService sessionService)
+        public SessionsPanel()
         {
             InitializeComponent();
-            DataContext = new SessionsListViewModel(sessionService);
+            DataContext = new SessionsListViewModel();
         }
     }
 }

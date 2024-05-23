@@ -6,10 +6,10 @@ namespace CodeBuddies.Views.UserControls
 {
     public partial class NotificationsPanel : UserControl
     {
-        public NotificationsPanel(INotificationService notificationService, ISessionService sessionService)
+        public NotificationsPanel()
         {
             InitializeComponent();
-            DataContext = new NotificationsPanelViewModel(notificationService, sessionService);
+            DataContext = new NotificationsPanelViewModel();
         }
     }
 }

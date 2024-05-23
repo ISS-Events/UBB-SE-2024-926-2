@@ -1,6 +1,8 @@
-﻿using CodeBuddies.Services.Interfaces;
+﻿using System.Windows.Controls;
+using CodeBuddies.Services;
+using CodeBuddies.Services.Interfaces;
 using CodeBuddies.ViewModels;
-using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.Views.UserControls
 {
@@ -9,10 +11,10 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class ActiveInactiveBuddies : UserControl
     {
-        public ActiveInactiveBuddies(IBuddyService buddyService)
+        public ActiveInactiveBuddies()
         {
             InitializeComponent();
-            DataContext = new ActiveInactiveBuddiesListViewModel(buddyService);
+            DataContext = new ActiveInactiveBuddiesListViewModel();
         }
     }
 }

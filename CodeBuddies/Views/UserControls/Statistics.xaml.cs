@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.Views.UserControls
 {
@@ -9,13 +11,14 @@ namespace CodeBuddies.Views.UserControls
     public partial class Statistics : Window
     {
         private readonly IQuestionFeedService iservice;
-        public Statistics(IQuestionFeedService service)
+        public Statistics()
         {
+            iservice = ServiceLocator.ServiceProvider.GetService<IQuestionFeedService>()
+                ?? throw new Exception("No implementation");
             InitializeComponent();
-            iservice = service;
-            ThisWeek.Text = service.CountQuestionsInLast7Days().ToString();
-            ThisMonth.Text = service.FilterQuestionsAnsweredThisMonth().ToString();
-            ThisYear.Text = service.FilterQuestionsAnsweredLastYear().ToString();
+            ThisWeek.Text = iservice.CountQuestionsInLast7Days().ToString();
+            ThisMonth.Text = iservice.FilterQuestionsAnsweredThisMonth().ToString();
+            ThisYear.Text = iservice.FilterQuestionsAnsweredLastYear().ToString();
         }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using CodeBuddies.Repositories;
-using CodeBuddies.Resources.Data;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
 using CodeBuddies.ViewModels;
-using static CodeBuddies.Models.Validators.ValidationForNewSession;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.Views.UserControls
 {
@@ -14,11 +12,11 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class CreateNewSessionPopUp : Window
     {
-        private CreateNewSessionPopUpViewModel viewModel;
-        public CreateNewSessionPopUp(ISessionService sessionService)
+        private readonly CreateNewSessionPopUpViewModel viewModel;
+        public CreateNewSessionPopUp()
         {
             InitializeComponent();
-            viewModel = new CreateNewSessionPopUpViewModel(sessionService);
+            viewModel = new CreateNewSessionPopUpViewModel();
         }
 
         private void SessionNameTextBox_TextChanged(object sender, TextChangedEventArgs e)

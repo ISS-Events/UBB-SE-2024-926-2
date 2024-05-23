@@ -8,6 +8,7 @@ using CodeBuddies.Repositories;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
 using CodeBuddies.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.ViewModels
 {
@@ -21,11 +22,13 @@ namespace CodeBuddies.ViewModels
         private string searchText;
 
         #endregion
-        public BuddiesListViewModel(IBuddyService buddyService, ISessionService sessionService)
+        public BuddiesListViewModel()
         {
             buddies = new ();
-            this.buddyService = buddyService;
-            this.sessionService = sessionService;
+            buddyService = ServiceLocator.ServiceProvider.GetService<IBuddyService>()
+                ?? throw new Exception("No implementation");
+            sessionService = ServiceLocator.ServiceProvider.GetService<ISessionService>()
+                ?? throw new Exception("No implementation");
             selectedBuddy = null;
             searchText = string.Empty;
             GlobalEvents.BuddyPinned += HandleBuddyPinned;
@@ -102,7 +105,7 @@ namespace CodeBuddies.ViewModels
             Console.WriteLine("test");
             if (SelectedBuddy != null)
             {
-                var modalWindow = new BuddyModalWindow(SelectedBuddy, sessionService);
+                var modalWindow = new BuddyModalWindow(SelectedBuddy);
                 modalWindow.Owner = Application.Current.MainWindow; // Ensure it's modal to the main window
 
                 bool? dialogResult = modalWindow.ShowDialog();

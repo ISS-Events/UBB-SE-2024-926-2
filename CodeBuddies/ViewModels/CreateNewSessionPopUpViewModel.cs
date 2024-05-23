@@ -5,6 +5,7 @@ using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Resources.Data;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.ViewModels
 {
@@ -12,9 +13,10 @@ namespace CodeBuddies.ViewModels
     {
         private readonly ISessionService sessionService;
 
-        public CreateNewSessionPopUpViewModel(ISessionService sessionService)
+        public CreateNewSessionPopUpViewModel()
         {
-            this.sessionService = sessionService;
+             sessionService = ServiceLocator.ServiceProvider.GetService<ISessionService>()
+                ?? throw new Exception("No implementation");
         }
 
         public void AddNewSession(string sessionName, string maxParticipants)

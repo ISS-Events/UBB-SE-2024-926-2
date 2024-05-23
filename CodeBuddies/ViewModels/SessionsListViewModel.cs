@@ -3,11 +3,21 @@ using System.Windows.Input;
 using CodeBuddies.Models.Entities;
 using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.MVVM;
+using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 namespace CodeBuddies.ViewModels
 {
     public class SessionsListViewModel : ViewModelBase
     {
+        public SessionsListViewModel()
+        {
+            sessionService = ServiceLocator.ServiceProvider.GetService<ISessionService>()
+                ?? throw new Exception("No implementation");
+            GlobalEvents.BuddyAddedToSession += HandleBuddyAddedToSession;
+            sessions = new ObservableCollection<ISession>(sessionService.GetAllSessionsForCurrentBuddy());
+            searchBySessionName = string.Empty;
+        }
         #region Fields
         private ObservableCollection<ISession> sessions;
         private readonly ISessionService sessionService;
@@ -15,8 +25,8 @@ namespace CodeBuddies.ViewModels
         #endregion
 
         #region Commands
-        public RelayCommand<ISession> LeaveSessionCommand => new RelayCommand<ISession>(LeaveSession);
-        public RelayCommand<ISession> JoinSessionCommand => new RelayCommand<ISession>(JoinSession);
+        public RelayCommand<ISession> LeaveSessionCommand => new (LeaveSession);
+        public RelayCommand<ISession> JoinSessionCommand => new (JoinSession);
         public ICommand SendInviteNotification => new RelayCommand<Buddy>(InviteBuddyToSession);
         #endregion
 
@@ -47,17 +57,7 @@ namespace CodeBuddies.ViewModels
                 OnPropertyChanged();
             }
         }
-
         #endregion
-
-        public SessionsListViewModel(ISessionService sessionService)
-        {
-            this.sessionService = sessionService;
-            GlobalEvents.BuddyAddedToSession += HandleBuddyAddedToSession;
-            sessions = new ObservableCollection<ISession>(sessionService.GetAllSessionsForCurrentBuddy());
-            searchBySessionName = string.Empty;
-        }
-
         #region Methods
         public void FilterSessionsBySessionName()
         {

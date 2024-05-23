@@ -1,20 +1,10 @@
-﻿using CodeBuddies.Models.Entities;
-using CodeBuddies.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms.Design;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using CodeBuddies.Models.Entities;
+using CodeBuddies.Services;
+using CodeBuddies.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.Views.UserControls
 {
@@ -29,15 +19,18 @@ namespace CodeBuddies.Views.UserControls
 
         private readonly IQuestionFeedService iservice;
 
-        public MiniProfile(IQuestionFeedService service)
+        public MiniProfile()
         {
             InitializeComponent();
-            this.iservice = service;
+            iservice = ServiceLocator.ServiceProvider.GetService<IQuestionFeedService>()
+                ?? throw new Exception("No implementation");
             // sorry for what's coming
             // we're getting the profile of the user with id 3
+            //
+
             // ?? idk what is this shit here so i'm sure i won't disturb it's natural habitat - Boti
-            Answers = new ObservableCollection<IPost>(service.GetCommentsOfUser(3));
-            Questions = new ObservableCollection<IQuestion>(service.GetQuestionsOfUser(1));
+            Answers = new ObservableCollection<IPost>(iservice.GetCommentsOfUser(3));
+            Questions = new ObservableCollection<IQuestion>(iservice.GetQuestionsOfUser(1));
             DataContext = this; // Set DataContext to enable data binding
         }
 

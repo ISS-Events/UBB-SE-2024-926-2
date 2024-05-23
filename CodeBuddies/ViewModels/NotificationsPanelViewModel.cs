@@ -9,15 +9,18 @@ using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Resources.Data;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBuddies.ViewModels
 {
     public class NotificationsPanelViewModel : ViewModelBase
     {
-        public NotificationsPanelViewModel(INotificationService notificationService, ISessionService sessionService)
+        public NotificationsPanelViewModel()
         {
-            this.notificationService = notificationService;
-            this.sessionService = sessionService;
+            notificationService = ServiceLocator.ServiceProvider.GetService<INotificationService>()
+                ?? throw new Exception("No implementation");
+            sessionService = ServiceLocator.ServiceProvider.GetService<ISessionService>()
+                ?? throw new Exception("No implementation");
             notifications = new ObservableCollection<Notification>(notificationService.GetAllNotificationsForCurrentBuddy());
         }
 

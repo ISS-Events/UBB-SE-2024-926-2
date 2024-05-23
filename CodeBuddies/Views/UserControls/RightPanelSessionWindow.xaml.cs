@@ -29,10 +29,10 @@ namespace CodeBuddies.Views.UserControls
         private void ReviewCodeButton_Clicked(object sender, RoutedEventArgs e)
         {
             // Create a new instance of the CodeReview UserControl
-            CodeReview codeReview = new CodeReview();
+            CodeReview codeReview = new ();
 
             // Show the CodeReview UserControl in a dialog window
-            Window codeReviewWindow = new Window
+            Window codeReviewWindow = new ()
             {
                 Title = "Code Review",
                 Content = codeReview,
