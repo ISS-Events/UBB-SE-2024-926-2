@@ -4,12 +4,12 @@ using CodeBuddies.Services.Interfaces;
 namespace CodeBuddies.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for Statistics.xaml
+    /// Interaction logic for StatisticsView.xaml
     /// </summary>
-    public partial class Statistics : Window
+    public partial class StatisticsView : Window
     {
         private readonly IQuestionFeedService iservice;
-        public Statistics(IQuestionFeedService service)
+        public StatisticsView(IQuestionFeedService service)
         {
             InitializeComponent();
             iservice = service;

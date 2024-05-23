@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms.Design;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CodeBuddies.Models.Entities;
 using CodeBuddies.Services.Interfaces;
 
@@ -123,21 +110,18 @@ namespace CodeBuddies.Views.UserControls
         private void OnQuestion_Click(object sender, RoutedEventArgs e)
         {
             IQuestion myQuestion = (Question)((Button)sender).DataContext;
-            // TODO
-            // SearchFrame.Navigate(new ViewQuestionPage(iservice, myQuestion));
+            SearchFrame.Navigate(new ViewQuestionPage(iservice, myQuestion));
         }
 
         private void AskQuestion_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
-            // SearchFrame.Navigate(new CreateQuestionPage(iservice));
+            SearchFrame.Navigate(new CreateQuestionPage(iservice));
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
-            // StatisticsView statistics = new(iservice);
-            // statistics.Show();
+            StatisticsView statistics = new (iservice);
+            statistics.Show();
         }
     }
 }
