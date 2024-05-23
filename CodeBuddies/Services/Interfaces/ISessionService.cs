@@ -1,4 +1,4 @@
-﻿using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities;
 using CodeBuddies.Repositories.Interfaces;
 
 namespace CodeBuddies.Services.Interfaces
@@ -8,8 +8,8 @@ namespace CodeBuddies.Services.Interfaces
         ISessionRepository SessionRepository { get; set; }
         void AddBuddyMemberToSession(long receiverId, long sessionId);
         long AddNewSession(string sessionName, string maxParticipants);
-        List<ISession> FilterSessionsBySessionName(string sessionName);
-        List<ISession> GetAllSessionsForCurrentBuddy();
+        List<Session> FilterSessionsBySessionName(string sessionName);
+        List<Session> GetAllSessionsForCurrentBuddy();
         string GetSessionName(long sessionId);
     }
 }

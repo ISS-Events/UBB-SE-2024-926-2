@@ -15,19 +15,19 @@ namespace CodeBuddies.ViewModels
     public class NotificationsPanelViewModel : ViewModelBase
     {
         #region Fields
-        private ObservableCollection<INotification> notifications;
+        private ObservableCollection<Notification> notifications;
         private readonly INotificationService notificationService;
         private readonly ISessionService sessionService;
         #endregion
 
         #region Commands
-        public RelayCommand<INotification> AcceptCommand => new (AcceptInvite);
-        public RelayCommand<INotification> DeclineCommand => new (DeclineInvite);
-        public RelayCommand<INotification> MarkReadCommand => new (MarkReadNotification);
+        public RelayCommand<Notification> AcceptCommand => new (AcceptInvite);
+        public RelayCommand<Notification> DeclineCommand => new (DeclineInvite);
+        public RelayCommand<Notification> MarkReadCommand => new (MarkReadNotification);
         #endregion
 
         #region Properties
-        public ObservableCollection<INotification> Notifications
+        public ObservableCollection<Notification> Notifications
         {
             get
             {
@@ -48,11 +48,11 @@ namespace CodeBuddies.ViewModels
             notificationService = new NotificationService(notificationRepository);
             ISessionRepository sessionRepository = new SessionRepository();
             sessionService = new SessionService(sessionRepository);
-            Notifications = new ObservableCollection<INotification>(notificationService.GetAllNotificationsForCurrentBuddy());
+            Notifications = new ObservableCollection<Notification>(notificationService.GetAllNotificationsForCurrentBuddy());
         }
 
         #region Methods
-        private void AcceptInvite(INotification notification)
+        private void AcceptInvite(Notification notification)
         {
             SendAcceptedInfoNotification(notification);
             // save the new member
@@ -71,33 +71,33 @@ namespace CodeBuddies.ViewModels
                 RemoveNotification(notification);
             }
         }
-        private void DeclineInvite(INotification notification)
+        private void DeclineInvite(Notification notification)
         {
             // send an information notification informing the inviter that the user declined
             SendDeclinedInfoNotification(notification);
             RemoveNotification(notification);
         }
-        private void MarkReadNotification(INotification notification)
+        private void MarkReadNotification(Notification notification)
         {
             RemoveNotification(notification);
         }
-        private void SendDeclinedInfoNotification(INotification notification)
+        private void SendDeclinedInfoNotification(Notification notification)
         {
             // Reverse sender and receiver ids because this notification goes backwards
-            INotification declinedNotification = new InfoNotification(notificationService.GetFreeNotificationId(), DateTime.Now, "rejectInformation", "pending", Constants.CLIENT_NAME + " rejected your invitation", notification.ReceiverId, notification.SenderId, notification.SessionId);
+            Notification declinedNotification = new InfoNotification(notificationService.GetFreeNotificationId(), DateTime.Now, "rejectInformation", "pending", Constants.CLIENT_NAME + " rejected your invitation", notification.ReceiverId, notification.SenderId, notification.SessionId);
             notificationService.AddNotification(declinedNotification);
         }
-        private void SendAcceptedInfoNotification(INotification notification)
+        private void SendAcceptedInfoNotification(Notification notification)
         {
             // Reverse sender and receiver ids because this notification goes backwards
-            INotification acceptedNotification = new InfoNotification(notificationService.GetFreeNotificationId(), DateTime.Now, "successInformation", "pending", Constants.CLIENT_NAME + " accepted your invitation!", notification.ReceiverId, notification.SenderId, notification.SessionId);
+            Notification acceptedNotification = new InfoNotification(notificationService.GetFreeNotificationId(), DateTime.Now, "successInformation", "pending", Constants.CLIENT_NAME + " accepted your invitation!", notification.ReceiverId, notification.SenderId, notification.SessionId);
             notificationService.AddNotification(acceptedNotification);
         }
         private void ShowErrorPopup(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        private void RemoveNotification(INotification notification)
+        private void RemoveNotification(Notification notification)
         {
             // update optimistically
             notifications.Remove(notification);
@@ -109,7 +109,7 @@ namespace CodeBuddies.ViewModels
             catch (Exception)
             {
                 // if failure, fetch again
-                Notifications = new ObservableCollection<INotification>(notificationService.GetAllNotificationsForCurrentBuddy());
+                Notifications = new ObservableCollection<Notification>(notificationService.GetAllNotificationsForCurrentBuddy());
             }
         }
         #endregion

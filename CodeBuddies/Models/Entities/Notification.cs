@@ -6,7 +6,7 @@ namespace CodeBuddies.Models.Entities
     public abstract class Notification : INotification
     {
         #region Properties
-        public long NotificationId { get; set; }
+        public long Id { get; set; }
         public DateTime TimeStamp { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
@@ -18,7 +18,7 @@ namespace CodeBuddies.Models.Entities
         #region Constructors
         public Notification(long notificationId, DateTime timeStamp, string type, string status, string description, long senderId, long receiverId, long sessionId)
         {
-            NotificationId = notificationId;
+            Id = notificationId;
             TimeStamp = timeStamp;
             Type = type;
             Status = status;
@@ -30,7 +30,7 @@ namespace CodeBuddies.Models.Entities
 
         public Notification()
         {
-            NotificationId = IDGenerator.Default();
+            Id = IDGenerator.Default();
             TimeStamp = DateTime.Now;
             Type = string.Empty;
             Status = string.Empty;
@@ -39,9 +39,6 @@ namespace CodeBuddies.Models.Entities
             ReceiverId = IDGenerator.Default();
             SessionId = IDGenerator.Default();
         }
-        #endregion
-        #region Methods
-        protected abstract void MarkNotification();
         #endregion
     }
 }

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities;
 using CodeBuddies.Models.Validators;
 using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Resources.Data;
 using CodeBuddies.Services.Interfaces;
-using static CodeBuddies.Models.Validators.ValidationForNewSession;
 
 namespace CodeBuddies.Services
 {
@@ -57,9 +50,9 @@ namespace CodeBuddies.Services
             return sessionRepository.GetSessionName(sessionId);
         }
 
-        public List<ISession> FilterSessionsBySessionName(string sessionName)
+        public List<Session> FilterSessionsBySessionName(string sessionName)
         {
-            List<ISession> filteredSessions = new List<ISession>();
+            List<Session> filteredSessions = new List<Session>();
             foreach (var session in sessionRepository.GetAllSessionsOfABuddy(Constants.CLIENT_BUDDY_ID))
             {
                 if (session.Name.ToLower().Contains(sessionName.ToLower()))
@@ -70,7 +63,7 @@ namespace CodeBuddies.Services
             return filteredSessions;
         }
 
-        public List<ISession> GetAllSessionsForCurrentBuddy()
+        public List<Session> GetAllSessionsForCurrentBuddy()
         {
             return sessionRepository.GetAllSessionsOfABuddy(Constants.CLIENT_BUDDY_ID);
         }

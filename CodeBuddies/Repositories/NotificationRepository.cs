@@ -1,9 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.MVVM;
-using CodeBuddies.Repositories.Interfaces;
 
 namespace CodeBuddies.Repositories
 {
@@ -13,28 +11,28 @@ namespace CodeBuddies.Repositories
         {
         }
 
-        public List<INotification> GetAll()
+        public List<Notification> GetAll()
         {
-            List<INotification> notifications = new List<INotification>();
+            List<Notification> notifications = new ();
 
-            DataSet notificationDataSet = new DataSet();
-            string selectAll = "SELECT * FROM Notifications";
-            SqlCommand selectAllNotifications = new SqlCommand(selectAll, sqlConnection);
+            DataSet notificationDataSet = new ();
+            string selectAll = "SELECT * FROM Notification";
+            SqlCommand selectAllNotifications = new (selectAll, sqlConnection);
             dataAdapter.SelectCommand = selectAllNotifications;
             notificationDataSet.Clear();
-            dataAdapter.Fill(notificationDataSet, "Notifications");
+            dataAdapter.Fill(notificationDataSet, "Notification");
 
-            foreach (DataRow notificationRow in notificationDataSet.Tables["Notifications"].Rows)
+            foreach (DataRow notificationRow in notificationDataSet.Tables["Notification"].Rows)
             {
-                INotification currentNotification;
+                Notification currentNotification;
 
-                if (notificationRow["notification_type"].ToString() == "invite")
+                if (notificationRow["Type"].ToString() == "invite")
                 {
-                    currentNotification = new InviteNotification((long)notificationRow["id"], (DateTime)notificationRow["notification_timestamp"], notificationRow["notification_type"].ToString(), notificationRow["notification_status"].ToString(), notificationRow["notification_description"].ToString(), (long)notificationRow["sender_id"], (long)notificationRow["receiver_id"], (long)notificationRow["session_id"], false);
+                    currentNotification = new InviteNotification((long)notificationRow["Id"], (DateTime)notificationRow["TimeStamp"], notificationRow["Type"].ToString(), notificationRow["Status"].ToString(), notificationRow["Description"].ToString(), (long)notificationRow["SenderId"], (long)notificationRow["ReceiverId"], (long)notificationRow["SessionId"], false);
                 }
                 else
                 {
-                    currentNotification = new InfoNotification((long)notificationRow["id"], (DateTime)notificationRow["notification_timestamp"], notificationRow["notification_type"].ToString(), notificationRow["notification_status"].ToString(), notificationRow["notification_description"].ToString(), (long)notificationRow["sender_id"], (long)notificationRow["receiver_id"], (long)notificationRow["session_id"]);
+                    currentNotification = new InfoNotification((long)notificationRow["Id"], (DateTime)notificationRow["TimeStamp"], notificationRow["Type"].ToString(), notificationRow["Status"].ToString(), notificationRow["Description"].ToString(), (long)notificationRow["SenderId"], (long)notificationRow["ReceiverId"], (long)notificationRow["SessionId"]);
                 }
 
                 notifications.Add(currentNotification);
@@ -43,29 +41,29 @@ namespace CodeBuddies.Repositories
             return notifications;
         }
 
-        public List<INotification> GetAllByBuddyId(long buddyId)
+        public List<Notification> GetAllByBuddyId(long buddyId)
         {
-            List<INotification> notifications = new List<INotification>();
+            List<Notification> notifications = new ();
 
-            DataSet notificationDataSet = new DataSet();
-            string selectAll = "SELECT * FROM Notifications WHERE receiver_id=@buddyId";
-            SqlCommand selectAllNotifications = new SqlCommand(selectAll, sqlConnection);
+            DataSet notificationDataSet = new ();
+            string selectAll = "SELECT * FROM Notification WHERE ReceiverId=@buddyId";
+            SqlCommand selectAllNotifications = new (selectAll, sqlConnection);
             selectAllNotifications.Parameters.AddWithValue("@buddyId", buddyId);
             dataAdapter.SelectCommand = selectAllNotifications;
             notificationDataSet.Clear();
-            dataAdapter.Fill(notificationDataSet, "Notifications");
+            dataAdapter.Fill(notificationDataSet, "Notification");
 
-            foreach (DataRow notificationRow in notificationDataSet.Tables["Notifications"].Rows)
+            foreach (DataRow notificationRow in notificationDataSet.Tables["Notification"].Rows)
             {
-                INotification currentNotification;
+                Notification currentNotification;
 
-                if (notificationRow["notification_type"].ToString() == "invite")
+                if (notificationRow["Type"].ToString() == "invite")
                 {
-                    currentNotification = new InviteNotification((long)notificationRow["id"], (DateTime)notificationRow["notification_timestamp"], notificationRow["notification_type"].ToString(), notificationRow["notification_status"].ToString(), notificationRow["notification_description"].ToString(), (long)notificationRow["sender_id"], (long)notificationRow["receiver_id"], (long)notificationRow["session_id"], false);
+                    currentNotification = new InviteNotification((long)notificationRow["Id"], (DateTime)notificationRow["TimeStamp"], notificationRow["Type"].ToString(), notificationRow["Status"].ToString(), notificationRow["Description"].ToString(), (long)notificationRow["SenderId"], (long)notificationRow["ReceiverId"], (long)notificationRow["SessionId"], false);
                 }
                 else
                 {
-                    currentNotification = new InfoNotification((long)notificationRow["id"], (DateTime)notificationRow["notification_timestamp"], notificationRow["notification_type"].ToString(), notificationRow["notification_status"].ToString(), notificationRow["notification_description"].ToString(), (long)notificationRow["sender_id"], (long)notificationRow["receiver_id"], (long)notificationRow["session_id"]);
+                    currentNotification = new InfoNotification((long)notificationRow["Id"], (DateTime)notificationRow["TimeStamp"], notificationRow["Type"].ToString(), notificationRow["Status"].ToString(), notificationRow["Description"].ToString(), (long)notificationRow["SenderId"], (long)notificationRow["ReceiverId"], (long)notificationRow["SessionId"]);
                 }
 
                 notifications.Add(currentNotification);
@@ -76,19 +74,17 @@ namespace CodeBuddies.Repositories
 
         public void RemoveById(long notificationId)
         {
-            string deleteNotificationQuery = "DELETE FROM Notifications WHERE id = @notificationId";
-            using (SqlCommand deleteCommand = new SqlCommand(deleteNotificationQuery, sqlConnection))
-            {
-                deleteCommand.Parameters.AddWithValue("@notificationId", notificationId);
+            string deleteNotificationQuery = "DELETE FROM Notification WHERE Id = @notificationId";
+            using SqlCommand deleteCommand = new (deleteNotificationQuery, sqlConnection);
+            deleteCommand.Parameters.AddWithValue("@notificationId", notificationId);
 
-                deleteCommand.ExecuteNonQuery();
-            }
+            deleteCommand.ExecuteNonQuery();
         }
 
         public long GetFreeNotificationId()
         {
             long maxId = 0;
-            string maxIdQuery = "SELECT MAX(id) FROM Notifications";
+            string maxIdQuery = "SELECT MAX(Id) FROM Notification";
 
             using (SqlCommand command = new SqlCommand(maxIdQuery, sqlConnection))
             {
@@ -105,26 +101,24 @@ namespace CodeBuddies.Repositories
 
         public void ClearDatabase()
         {
-            List<string> tables = new List<string>
+            List<string> tables = new ()
             {
                 "BuddiesSessions", "MessagesCodeReviews", "MessagesSessions", "CodeReviewsSessions",
-                "Notifications", "Sessions", "Messages", "CodeReviews", "CodeContributions", "Buddies"
+                "Notification", "Sessions", "Messages", "CodeReviews", "CodeContributions", "Buddies"
             };
             foreach (string table in tables)
             {
                 string deleteNotificationQuery = $"DELETE FROM {table}";
-                using (SqlCommand deleteCommand = new SqlCommand(deleteNotificationQuery, sqlConnection))
-                {
-                    deleteCommand.ExecuteNonQuery();
-                }
+                using SqlCommand deleteCommand = new (deleteNotificationQuery, sqlConnection);
+                deleteCommand.ExecuteNonQuery();
             }
         }
 
-        public void Save(INotification notification)
+        public void Save(Notification notification)
         {
             // Define the SQL command to insert a new notification
             string saveQuery = @"
-                INSERT INTO Notifications (id, notification_timestamp, notification_type, notification_status, notification_description, sender_id, receiver_id, session_id)
+                INSERT INTO Notification (Id, Timestamp, Type, Status, Description, SenderId, ReceiverId, SessionId)
                 VALUES (@Id, @Timestamp, @Type, @Status, @Description, @SenderId, @ReceiverId, @SessionId)";
 
             // Create a SqlCommand object with the save query and connection

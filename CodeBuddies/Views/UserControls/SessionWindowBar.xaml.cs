@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CodeBuddies.Models.Entities;
 using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Repositories;
 using CodeBuddies.ViewModels;
@@ -80,10 +81,10 @@ namespace CodeBuddies.Views.UserControls
             if (sessionRepository != null)
             {
                 // Load the CodeReviewSection
-                List<ICodeReviewSection> codeReviewSections = sessionRepository.GetCodeReviewSectionsForSpecificSession(1);
+                List<CodeReviewSection> codeReviewSections = sessionRepository.GetCodeReviewSectionsForSpecificSession(1);
 
                 // transform the code review sections into obsarvable collection
-                ObservableCollection<ICodeReviewSection> codeReviewSectionsObservable = new ObservableCollection<ICodeReviewSection>(codeReviewSections);
+                ObservableCollection<CodeReviewSection> codeReviewSectionsObservable = new ObservableCollection<CodeReviewSection>(codeReviewSections);
 
                 // Add the CodeReviewSection to the Grid
                 GridTextEditor.Children.Clear();

@@ -1,4 +1,4 @@
-﻿using CodeBuddies.Models.Entities.Interfaces;
+﻿using CodeBuddies.Models.Entities;
 
 namespace CodeBuddies.Repositories.Interfaces
 {
@@ -6,13 +6,13 @@ namespace CodeBuddies.Repositories.Interfaces
     {
         void AddBuddyMemberToSession(long buddyId, long sessionId);
         long AddNewSession(string sessionName, long ownerId, int maxParticipants);
-        List<ISession> GetAllSessionsOfABuddy(long buddyId);
+        List<Session> GetAllSessionsOfABuddy(long buddyId);
         List<long> GetBuddiesForSpecificSession(long sessionId);
-        List<ICodeContribution> GetCodeContributionsForSpecificSession(long sessionId);
-        List<ICodeReviewSection> GetCodeReviewSectionsForSpecificSession(long sessionId);
+        List<CodeContribution> GetCodeContributionsForSpecificSession(long sessionId);
+        List<CodeReviewSection> GetCodeReviewSectionsForSpecificSession(long sessionId);
         long GetFreeSessionId();
-        List<IMessage> GetMessagesForSpecificCodeReview(long codeReviewId);
-        List<IMessage> GetMessagesForSpecificSession(long sessionId);
+        List<Message> GetMessagesForSpecificCodeReview(long codeReviewId);
+        List<Message> GetMessagesForSpecificSession(long sessionId);
         string GetSessionName(long sessionId);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 using CodeBuddies.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

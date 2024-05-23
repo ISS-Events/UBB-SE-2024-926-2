@@ -6,6 +6,7 @@ namespace CodeBuddies.Models.Entities
     public class CodeContribution : ICodeContribution
     {
         #region Properties
+        public long Id { get; set; }
         public long Contributor { get; set; }
         public DateTime ContributionDate { get; set; }
         public int ContributionValue { get; set; }
@@ -13,6 +14,7 @@ namespace CodeBuddies.Models.Entities
         #region Constructors
         public CodeContribution()
         {
+            Id = IDGenerator.Default();
             Contributor = IDGenerator.Default();
             ContributionDate = DateTime.Now;
             ContributionValue = 0;
