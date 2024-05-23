@@ -7,6 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="300">
 
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -27,16 +29,16 @@
                             <Ellipse Margin="5">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="{Binding ProfilePhotoUrl}" 
-                        Viewport="0,0,1,1" 
-                        ViewportUnits="RelativeToBoundingBox" 
-                        Stretch="Uniform"/>
+                    Viewport="0,0,1,1" 
+                    ViewportUnits="RelativeToBoundingBox" 
+                    Stretch="Uniform"/>
                                 </Ellipse.Fill>
                             </Ellipse>
                         </Border>
 
                         <Button Name="BuddyCard" Style="{StaticResource defaultButtonStyle}" Grid.Column="1"
-                    Content="{Binding BuddyName}" Command="{Binding DataContext.OpenModalCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
-                     Margin="10"/>
+                Content="{Binding BuddyName}" Command="{Binding DataContext.OpenModalCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                 Margin="10"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

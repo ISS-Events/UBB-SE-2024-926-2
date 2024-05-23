@@ -28,7 +28,7 @@
 
 
             <userControls:BuddiesList Grid.Row="1" />
-            <userControls:NotificationsPanel Grid.Row="2" />
+            <!--<userControls:NotificationsPanel Grid.Row="2" />-->
 
         </Grid>
 
@@ -37,7 +37,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <userControls:SessionsPanel Grid.Row="0"/>
+            <!--<userControls:SessionsPanel Grid.Row="0"/>-->
 
         </Grid>
 

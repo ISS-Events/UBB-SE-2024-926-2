@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using CodeBuddies.MVVM;
+using CodeBuddies.Repositories;
+using CodeBuddies.Repositories.Interfaces;
 using CodeBuddies.Services;
 using CodeBuddies.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,13 +19,17 @@ namespace CodeBuddies
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<IQuestionFeedService, QuestionFeedService>();
             services.AddSingleton<ISessionService, SessionService>();
-            // Repos
+            services.AddSingleton<IBuddyRepository, BuddyRepository>();
+            services.AddSingleton<INotificationRepository, NotificationRepository>();
+            services.AddSingleton<ISessionRepository, SessionRepository>();
+            services.AddSingleton<IQuestionFeedRepository, QuestionFeedRepository>();
         }
         public App()
         {
             host = Host.CreateDefaultBuilder()
                 .ConfigureServices(Register)
                 .Build();
+            ServiceLocator.ServiceProvider = host.Services;
         }
 
         private async void InitialiseServicesAndShowMainPage(object sender, StartupEventArgs e)

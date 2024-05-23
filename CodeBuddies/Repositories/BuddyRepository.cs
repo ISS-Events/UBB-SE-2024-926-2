@@ -15,6 +15,22 @@ namespace CodeBuddies.Repositories
 
         public List<Buddy> GetAllBuddies()
         {
+            /*
+            return new Task<List<Buddy>>();
+            using (HttpClient httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7122/api/Buddies");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    Task<List<Buddy>> buddies = JsonSerializer.Deserialize<Task<List<Buddy>>>(responseBody);
+                    return await buddies;
+                }
+                else
+                {
+                    throw new Exception("lm");
+                }
+            }*/
             List<Buddy> buddies = new ();
 
             DataSet buddyDataSet = new ();
