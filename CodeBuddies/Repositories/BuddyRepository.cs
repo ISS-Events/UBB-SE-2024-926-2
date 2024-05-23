@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Net.Http;
+using System.Text.Json;
 using CodeBuddies.Models.Entities;
 using CodeBuddies.Models.Exceptions;
 using CodeBuddies.MVVM;
@@ -61,12 +63,14 @@ namespace CodeBuddies.Repositories
 
         public List<Buddy> GetActiveBuddies()
         {
-            return GetAllBuddies().Where(buddy => buddy.Status == "active").ToList();
+            return new List<Buddy>();
+            // return GetAllBuddies().Where(buddy => buddy.Status == "active").ToList();
         }
 
         public List<Buddy> GetInactiveBuddies()
         {
-            return GetAllBuddies().Where(buddy => buddy.Status == "inactive").ToList();
+            return new List<Buddy>();
+            // return GetAllBuddies().Where(buddy => buddy.Status == "inactive").ToList();
         }
 
         public Buddy UpdateBuddyStatus(Buddy buddy)

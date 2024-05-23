@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 using CodeBuddies.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -7,7 +7,7 @@ using Microsoft.VisualBasic;
 
 namespace CodeBuddies.Data
 {
-    internal class DatabaseApplicationContext : DbContext
+    public class DatabaseApplicationContext : DbContext
     {
         public DatabaseApplicationContext()
         {
@@ -76,5 +76,6 @@ namespace CodeBuddies.Data
             .HasForeignKey("AnswerId") // Use a non-existing property name to represent foreign key
             .IsRequired(false);
         }
+        public DbSet<CodeBuddies.Models.Entities.Notification> Notification { get; set; } = default!;
     }
 }

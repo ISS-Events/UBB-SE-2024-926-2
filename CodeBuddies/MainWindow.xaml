@@ -7,37 +7,10 @@
         xmlns:userControls="clr-namespace:CodeBuddies.Views.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200">
-    <Grid Background="Gray">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".3*"/>
-            <ColumnDefinition Width=".7*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Background="White">
+        <Button Content="Drawing Board" HorizontalAlignment="Left" Margin="197,497,0,0" VerticalAlignment="Top" Height="91" Width="187" FontSize="25" RenderTransformOrigin="0.125,0.486" Click="DrawingBoard_Button_Click"/>
+        <Button Content="Forum" HorizontalAlignment="Left" Margin="816,497,0,0" VerticalAlignment="Top" Height="91" Width="148" FontSize="25" RenderTransformOrigin="0.319,0.522" Click="Forum_Button_Click"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,189,0,0" TextWrapping="Wrap" Text="Welcome" VerticalAlignment="Top" Height="61" Width="160" FontSize="35" RenderTransformOrigin="0.337,-0.369"/>
 
-        <Grid Grid.Column="0" Background="#A6A29F">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="70"/>
-                <RowDefinition Height=".7*"/>
-                <RowDefinition Height=".3*"/>
-            </Grid.RowDefinitions>
-
-            <Label Grid.Row="0" Content="Code Buddies" Style="{StaticResource BrandLabelStyle}"></Label>
-
-
-
-
-            <userControls:BuddiesList Grid.Row="1" />
-            <userControls:NotificationsPanel Grid.Row="2" />
-
-        </Grid>
-
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <userControls:SessionsPanel Grid.Row="0"/>
-
-        </Grid>
-        
     </Grid>
 </Window>

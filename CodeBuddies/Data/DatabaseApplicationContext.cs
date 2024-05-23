@@ -46,7 +46,6 @@ namespace CodeBuddies.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Configure entity filters and constraints here
             modelBuilder.Entity<Question>()
                 .HasOne(q => (q.Category));
             modelBuilder.Entity<Session>()

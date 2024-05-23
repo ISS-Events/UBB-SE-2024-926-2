@@ -1,6 +1,7 @@
 ﻿using System.Windows;
-using CodeBuddies.Models.Entities;
-using CodeBuddies.Repositories;
+using System.Windows.Input;
+using System.Windows.Navigation;
+using CodeBuddies.Views.UserControls;
 
 namespace CodeBuddies
 {
@@ -12,6 +13,22 @@ namespace CodeBuddies
         public MainWindow()
         {
             InitializeComponent(); // Arunca eroare pentru ca repositoruyurile potrivite nu sunt asociate in main :)
+        }
+
+        private void DrawingBoard_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationWindow navigationWindow = new NavigationWindow();
+            navigationWindow.Source = new System.Uri("Views/UserControls/DrawingBoardMenu.xaml", System.UriKind.Relative);
+            navigationWindow.Show();
+            this.Close();
+        }
+
+        private void Forum_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationWindow navigationWindow = new NavigationWindow();
+            navigationWindow.Source = new System.Uri("Views/UserControls/ForumMenu.xaml", System.UriKind.Relative);
+            navigationWindow.Show();
+            this.Close();
         }
     }
 }
