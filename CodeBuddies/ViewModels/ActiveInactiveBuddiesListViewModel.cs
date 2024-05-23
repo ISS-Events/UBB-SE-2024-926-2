@@ -17,11 +17,18 @@ namespace CodeBuddies.ViewModels
 {
     public class ActiveInactiveBuddiesListViewModel : ViewModelBase
     {
+        public ActiveInactiveBuddiesListViewModel(IBuddyService buddyService)
+        {
+            this.buddyService = buddyService;
+            active = new ObservableCollection<IBuddy>();
+            inactive = new ObservableCollection<IBuddy>();
+            allBuddies = new ObservableCollection<IBuddy>();
+        }
         #region Fields
         private IBuddyService buddyService;
-        private ObservableCollection<IBuddy> active = new ObservableCollection<IBuddy>();
-        private ObservableCollection<IBuddy> inactive = new ObservableCollection<IBuddy>();
-        private ObservableCollection<IBuddy> allBuddies = new ObservableCollection<IBuddy>();
+        private ObservableCollection<IBuddy> active;
+        private ObservableCollection<IBuddy> inactive;
+        private ObservableCollection<IBuddy> allBuddies;
         #endregion
 
         #region Properties
@@ -67,15 +74,6 @@ namespace CodeBuddies.ViewModels
             }
         }
         #endregion
-
-        public ActiveInactiveBuddiesListViewModel()
-        {
-            IBuddyRepository repo = new BuddyRepository();
-            BuddyService = new BuddyService(repo);
-            Active = new ObservableCollection<IBuddy>(BuddyService.ActiveBuddies);
-            Inactive = new ObservableCollection<IBuddy>(BuddyService.InactiveBuddies);
-        }
-
         public void Refresh()
         {
             BuddyService.RefreshData();

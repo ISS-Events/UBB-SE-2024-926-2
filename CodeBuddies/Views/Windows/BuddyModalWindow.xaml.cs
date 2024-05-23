@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using CodeBuddies.Models.Entities;
 using CodeBuddies.MVVM;
+using CodeBuddies.Services.Interfaces;
 using CodeBuddies.ViewModels;
 using CodeBuddies.Views.Windows;
 
@@ -11,12 +12,13 @@ namespace CodeBuddies.Views
     public partial class BuddyModalWindow : Window
     {
         public Buddy SelectedBuddy { get; set; }
-
-        public BuddyModalWindow(Buddy selectedBuddy)
+        private ISessionService sessionService;
+        public BuddyModalWindow(Buddy selectedBuddy, ISessionService sessionService)
         {
             InitializeComponent();
             DataContext = this;
             SelectedBuddy = selectedBuddy;
+            this.sessionService = sessionService;
         }
 
         public ICommand CloseCommand => new RelayCommand<Buddy>(_ => Close());
@@ -29,7 +31,7 @@ namespace CodeBuddies.Views
         {
             Console.WriteLine("test");
             Close();
-            var sessionWindow = new SessionsModalWindow();
+            var sessionWindow = new SessionsModalWindow(sessionService);
             sessionWindow.Owner = Application.Current.MainWindow; // Ensure it's modal to the main window
             bool? dialogResult = sessionWindow.ShowDialog();
 

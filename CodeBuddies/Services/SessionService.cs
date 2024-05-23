@@ -20,9 +20,9 @@ namespace CodeBuddies.Services
         }
         #endregion
 
-        public SessionService(ISessionRepository repo)
+        public SessionService(ISessionRepository repository)
         {
-            sessionRepository = repo;
+            sessionRepository = repository;
         }
 
         #region Adders

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CodeBuddies.Services.Interfaces;
 using CodeBuddies.ViewModels;
 
 namespace CodeBuddies.Views.UserControls
@@ -21,10 +22,10 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class ActiveBuddies : UserControl
     {
-        public ActiveBuddies()
+        public ActiveBuddies(IBuddyService buddyService)
         {
             InitializeComponent();
-            DataContext = new ActiveInactiveBuddiesListViewModel();
+            DataContext = new ActiveInactiveBuddiesListViewModel(buddyService);
         }
     }
 }

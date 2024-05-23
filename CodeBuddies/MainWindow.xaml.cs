@@ -12,7 +12,7 @@ namespace CodeBuddies
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); // Arunca eroare pentru ca repositoruyurile potrivite nu sunt asociate in main :)
         }
 
         private void DrawingBoard_Button_Click(object sender, RoutedEventArgs e)

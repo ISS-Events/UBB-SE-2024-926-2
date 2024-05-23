@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using CodeBuddies.Services.Interfaces;
 using CodeBuddies.ViewModels;
 
 namespace CodeBuddies.Views.UserControls
@@ -8,10 +9,10 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class SessionsPanel : UserControl
     {
-        public SessionsPanel()
+        public SessionsPanel(ISessionService sessionService)
         {
             InitializeComponent();
-            DataContext = new SessionsListViewModel();
+            DataContext = new SessionsListViewModel(sessionService);
         }
     }
 }

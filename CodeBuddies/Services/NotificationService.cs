@@ -7,6 +7,12 @@ namespace CodeBuddies.Services
 {
     public class NotificationService : INotificationService
     {
+        #region Constructor
+        public NotificationService(INotificationRepository repository)
+        {
+            notificationRepository = repository;
+        }
+        #endregion
         #region Fields
         private INotificationRepository notificationRepository;
         #endregion
@@ -18,25 +24,15 @@ namespace CodeBuddies.Services
             set { notificationRepository = value; }
         }
         #endregion
-
-        public NotificationService(INotificationRepository repo)
-        {
-            notificationRepository = repo;
-        }
-
-        #region Getters
+        #region Methods
         public List<Notification> GetAllNotificationsForCurrentBuddy()
         {
             return notificationRepository.GetAllByBuddyId(Constants.CLIENT_BUDDY_ID);
         }
-
         public long GetFreeNotificationId()
         {
             return notificationRepository.GetFreeNotificationId();
         }
-        #endregion
-
-        #region Methods
         public void RemoveNotification(Notification notification)
         {
             notificationRepository.RemoveById(notification.Id);

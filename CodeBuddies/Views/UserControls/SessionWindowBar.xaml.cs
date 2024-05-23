@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CodeBuddies.Models.Entities;
-using CodeBuddies.Models.Entities.Interfaces;
 using CodeBuddies.Repositories;
-using CodeBuddies.ViewModels;
 
 namespace CodeBuddies.Views.UserControls
 {
@@ -25,7 +11,7 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class SessionWindowBar : UserControl
     {
-        private SessionRepository sessionRepository;
+        private readonly SessionRepository sessionRepository;
 
         public event EventHandler DrawingBoardButtonClicked;
         public SessionWindowBar()

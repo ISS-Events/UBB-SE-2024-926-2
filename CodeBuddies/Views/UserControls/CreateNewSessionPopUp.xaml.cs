@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using CodeBuddies.Repositories;
 using CodeBuddies.Resources.Data;
+using CodeBuddies.Services;
+using CodeBuddies.Services.Interfaces;
 using CodeBuddies.ViewModels;
 using static CodeBuddies.Models.Validators.ValidationForNewSession;
 
@@ -13,10 +15,10 @@ namespace CodeBuddies.Views.UserControls
     public partial class CreateNewSessionPopUp : Window
     {
         private CreateNewSessionPopUpViewModel viewModel;
-        public CreateNewSessionPopUp()
+        public CreateNewSessionPopUp(ISessionService sessionService)
         {
             InitializeComponent();
-            viewModel = new CreateNewSessionPopUpViewModel();
+            viewModel = new CreateNewSessionPopUpViewModel(sessionService);
         }
 
         private void SessionNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
