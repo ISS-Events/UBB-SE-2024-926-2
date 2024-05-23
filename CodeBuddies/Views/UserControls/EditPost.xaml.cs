@@ -12,7 +12,7 @@ namespace CodeBuddies.Views.UserControls
     /// </summary>
     public partial class EditPost : Window
     {
-        private readonly IPost post;
+        private readonly IPost ipost;
         private readonly IQuestionFeedService iservice;
         public EditPost(IPost post)
         {
@@ -25,8 +25,8 @@ namespace CodeBuddies.Views.UserControls
         private void Submit_Button_Click(object sender, RoutedEventArgs e)
         {
             string text = Coolest_TextBox_Ever.Text;
-            post.Content = text;
-            post.DateOfLastEdit = DateTime.Now;
+            ipost.Content = text;
+            ipost.DateOfLastEdit = DateTime.Now;
             // This is not fine leaving this here until someone fixes
             TextPost newPost = new (post.UserID, text);
             iservice.UpdatePost(post, newPost);
