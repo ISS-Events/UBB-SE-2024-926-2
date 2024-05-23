@@ -16,7 +16,7 @@ namespace CodeBuddies.Views.UserControls
         private readonly IQuestionFeedService iservice;
         public EditPost(IPost post)
         {
-            this.post = post;
+            this.ipost = post;
             iservice = ServiceLocator.ServiceProvider.GetService<IQuestionFeedService>()
                 ?? throw new Exception("No implementation");
             InitializeComponent();
@@ -28,8 +28,8 @@ namespace CodeBuddies.Views.UserControls
             ipost.Content = text;
             ipost.DateOfLastEdit = DateTime.Now;
             // This is not fine leaving this here until someone fixes
-            TextPost newPost = new (post.UserID, text);
-            iservice.UpdatePost(post, newPost);
+            TextPost newPost = new (ipost.UserID, text);
+            iservice.UpdatePost(ipost, newPost);
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)

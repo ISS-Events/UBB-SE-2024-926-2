@@ -114,17 +114,17 @@ namespace CodeBuddies.Views.UserControls
         private void OnQuestion_Click(object sender, RoutedEventArgs e)
         {
             IQuestion myQuestion = (Question)((Button)sender).DataContext;
-            SearchFrame.Navigate(new ViewQuestionPage(iservice, myQuestion));
+            SearchFrame.Navigate(new ViewQuestionPage(myQuestion));
         }
 
         private void AskQuestion_Click(object sender, RoutedEventArgs e)
         {
-            SearchFrame.Navigate(new CreateQuestionPage(iservice));
+            SearchFrame.Navigate(new CreateQuestionPage());
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            StatisticsView statistics = new (iservice);
+            StatisticsView statistics = new ();
             statistics.Show();
         }
     }

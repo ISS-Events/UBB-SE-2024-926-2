@@ -8,18 +8,17 @@ namespace CodeBuddies.Views.UserControls
     /// <summary>
     /// Interaction logic for StatisticsView.xaml
     /// </summary>
-    public partial class Statistics : Window
+    public partial class StatisticsView : Window
     {
         private readonly IQuestionFeedService iservice;
-        public Statistics()
+        public StatisticsView()
         {
             iservice = ServiceLocator.ServiceProvider.GetService<IQuestionFeedService>()
                 ?? throw new Exception("No implementation");
             InitializeComponent();
-            iservice = service;
-            ThisWeek.Text = service.CountQuestionsInLast7Days().ToString();
-            ThisMonth.Text = service.FilterQuestionsAnsweredThisMonth().ToString();
-            ThisYear.Text = service.FilterQuestionsAnsweredLastYear().ToString();
+            ThisWeek.Text = iservice.CountQuestionsInLast7Days().ToString();
+            ThisMonth.Text = iservice.FilterQuestionsAnsweredThisMonth().ToString();
+            ThisYear.Text = iservice.FilterQuestionsAnsweredLastYear().ToString();
         }
     }
 }
