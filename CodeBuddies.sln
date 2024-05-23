@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBuddies", "CodeBuddies\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBuddiesTests", "CodeBuddiesTests\CodeBuddiesTests.csproj", "{99A12B68-FC62-4465-A83F-2EE1827ED3BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuddiesApi", "BuddiesApi\BuddiesApi.csproj", "{DCDD87E7-C5E4-48FA-AFDD-14391F8A06CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuddiesApi", "BuddiesApi\BuddiesApi.csproj", "{DE4F5B9C-9E30-4E50-B808-63A5BBE39014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{99A12B68-FC62-4465-A83F-2EE1827ED3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99A12B68-FC62-4465-A83F-2EE1827ED3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99A12B68-FC62-4465-A83F-2EE1827ED3BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCDD87E7-C5E4-48FA-AFDD-14391F8A06CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCDD87E7-C5E4-48FA-AFDD-14391F8A06CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCDD87E7-C5E4-48FA-AFDD-14391F8A06CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCDD87E7-C5E4-48FA-AFDD-14391F8A06CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE4F5B9C-9E30-4E50-B808-63A5BBE39014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE4F5B9C-9E30-4E50-B808-63A5BBE39014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE4F5B9C-9E30-4E50-B808-63A5BBE39014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4F5B9C-9E30-4E50-B808-63A5BBE39014}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
