@@ -29,7 +29,6 @@ namespace CodeBuddies.Services.Interfaces
         List<Question> SortQuestionsByNumberOfAnswersAscending();
         List<Question> SortQuestionsByNumberOfAnswersDescending();
         void UpdatePost(IPost oldPost, IPost newPost);
-        object FilterQuestionsByLast7Days();
     }
 }
 
