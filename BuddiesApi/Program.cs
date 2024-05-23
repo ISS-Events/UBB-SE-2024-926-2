@@ -1,4 +1,4 @@
-using BuddiesApi.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using CodeBuddies.Data;
