@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+<<<<<<< Updated upstream
 using BuddiesApi.Models;
+=======
+using CodeBuddies.Data;
+>>>>>>> Stashed changes
 using CodeBuddies.Models.Entities;
 
 namespace BuddiesApi.Controllers
@@ -14,9 +18,15 @@ namespace BuddiesApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
+<<<<<<< Updated upstream
         private readonly CategoryContext _context;
 
         public CategoriesController(CategoryContext context)
+=======
+        private readonly DatabaseApplicationContext _context;
+
+        public CategoriesController(DatabaseApplicationContext context)
+>>>>>>> Stashed changes
         {
             _context = context;
         }
@@ -81,7 +91,11 @@ namespace BuddiesApi.Controllers
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
+<<<<<<< Updated upstream
             return CreatedAtAction(nameof(PostCategory), new { id = category.ID }, category);
+=======
+            return CreatedAtAction("GetCategory", new { id = category.ID }, category);
+>>>>>>> Stashed changes
         }
 
         // DELETE: api/Categories/5
